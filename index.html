@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mraz0tix — Python Developer</title>
 <style>
-  /* Подключаем крутые шрифты напрямую от Google */
+  /* Подключаем стильный шрифт JetBrains Mono */
   @import url('https://googleapis.com');
 
   :root {
     --bg: #f9f9fb;
     --surface: #ffffff;
     --text: #111111;
-    --muted: #52525b;
+    --muted: #6b6b73;
     --line: #e4e4e9;
     --accent: #3b4cf0;
     --radius: 14px;
@@ -25,8 +25,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    /* Основной шрифт сайта теперь Geist (как у крутых IT-стартапов) */
-    font-family: "Geist", -apple-system, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -78,22 +77,19 @@
   section { padding: clamp(48px, 8vw, 80px) 0; border-bottom: 1px solid var(--line); }
 
   h2 {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    color: #a1a1aa;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: var(--muted);
+    letter-spacing: 0.01em;
     margin-bottom: 24px;
   }
 
-  /* НОВЫЙ СТИЛЬ ДЛЯ БЛОКА "ОБО МНЕ" */
+  /* НАСТРОЙКА ШРИФТА ОБО МНЕ */
   .about p {
-    max-width: 680px;
-    /* Меняем шрифт на хакерский/программистский JetBrains Mono */
-    font-family: "JetBrains Mono", monospace;
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
-    line-height: 1.7;
-    letter-spacing: -0.02em;
+    max-width: 640px;
+    font-family: "JetBrains Mono", monospace; /* Делаем шрифт программистским */
+    font-size: clamp(1rem, 2.2vw, 1.25rem); /* Оптимальный аккуратный размер */
+    line-height: 1.6;
     color: #27272a;
   }
 
@@ -148,7 +144,6 @@
     background: var(--bg);
     border: 1px solid var(--line);
     border-radius: 999px;
-    font-family: "JetBrains Mono", monospace;
   }
 
   .card.soon {
@@ -191,7 +186,6 @@
     padding: 0 0 48px;
     font-size: 0.85rem;
     color: var(--muted);
-    font-family: "JetBrains Mono", monospace;
   }
 
   @media (max-width: 680px) {
@@ -201,7 +195,6 @@
     .btn { padding: 22px 24px; }
   }
 </style>
-
 </head>
 <body>
 
@@ -213,6 +206,7 @@
   </header>
 
   <main>
+    <!-- Вот он, блок обо мне, вернулся на место! -->
     <section class="about">
       <div class="container">
         <h2>Обо мне</h2>
