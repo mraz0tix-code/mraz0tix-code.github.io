@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mraz0tix — Python Developer</title>
 <style>
+  /* Подключаем крутые шрифты напрямую от Google */
+  @import url('https://googleapis.com');
+
   :root {
     --bg: #f9f9fb;
     --surface: #ffffff;
     --text: #111111;
-    --muted: #6b6b73;
+    --muted: #52525b;
     --line: #e4e4e9;
     --accent: #3b4cf0;
     --radius: 14px;
@@ -22,7 +25,8 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* Основной шрифт сайта теперь Geist (как у крутых IT-стартапов) */
+    font-family: "Geist", -apple-system, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -74,18 +78,23 @@
   section { padding: clamp(48px, 8vw, 80px) 0; border-bottom: 1px solid var(--line); }
 
   h2 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--muted);
-    letter-spacing: 0.01em;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-bottom: 24px;
   }
 
+  /* НОВЫЙ СТИЛЬ ДЛЯ БЛОКА "ОБО МНЕ" */
   .about p {
-    max-width: 640px;
-    font-size: clamp(1.15rem, 2.6vw, 1.5rem);
-    line-height: 1.55;
-    letter-spacing: -0.015em;
+    max-width: 680px;
+    /* Меняем шрифт на хакерский/программистский JetBrains Mono */
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.7;
+    letter-spacing: -0.02em;
+    color: #27272a;
   }
 
   /* Projects */
@@ -122,6 +131,14 @@
 
   .card p { color: var(--muted); font-size: 0.97rem; }
 
+  .code-counter {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 5px;
+    font-family: "JetBrains Mono", monospace;
+  }
+
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
 
   .chip {
@@ -131,14 +148,7 @@
     background: var(--bg);
     border: 1px solid var(--line);
     border-radius: 999px;
-  }
-
-  /* Особый стиль для счетчика строк кода */
-  .code-counter {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-top: 5px;
+    font-family: "JetBrains Mono", monospace;
   }
 
   .card.soon {
@@ -181,6 +191,7 @@
     padding: 0 0 48px;
     font-size: 0.85rem;
     color: var(--muted);
+    font-family: "JetBrains Mono", monospace;
   }
 
   @media (max-width: 680px) {
@@ -190,6 +201,7 @@
     .btn { padding: 22px 24px; }
   }
 </style>
+
 </head>
 <body>
 
