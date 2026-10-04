@@ -3,301 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<title>mraz0tix — Python Developer</title>
+<title>System Toolbox by mraz0tix</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-  :root {
-    --bg: #f9f9fb;
-    --surface: #ffffff;
-    --text: #000000;
-    --muted: #5c5c66;
-    --line: #e5e5ea;
-    --accent: #2563eb;
-    --radius: 16px;
-    --ease: cubic-bezier(.2, .7, .2, 1);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { -webkit-text-size-adjust: 100%; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* Переключатель языка */
-  .lang {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
-    display: inline-flex;
-    padding: 3px;
-    font-family: inherit;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text);
-    background: rgba(255, 255, 255, 0.85);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    cursor: pointer;
-  }
-
-  .lang span {
-    padding: 6px 12px;
-    line-height: 1;
-    border-radius: 999px;
-    transition: background 0.35s ease, color 0.35s ease;
-  }
-
-  .lang span.is-active { background: var(--text); color: #ffffff; }
-  .lang:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  /* Плавная смена текста при переводе */
-  [data-i18n], #lines-count { transition: opacity 0.16s ease; }
-  .is-fading { opacity: 0; }
-
-  /* Hero */
-  .hero {
-    padding: clamp(96px, 16vw, 168px) 0 clamp(56px, 10vw, 96px);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .hero h1 {
-    font-size: clamp(3rem, 13vw, 8rem);
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    line-height: 1;
-  }
-
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 28px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-  }
-
-  .tag::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  /* Секции */
-  section {
-    padding: clamp(48px, 8vw, 80px) 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  h2 {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-
-  h2::before {
-    content: "";
-    width: 20px;
-    height: 2px;
-    background: var(--accent);
-  }
-
-  /* Обо мне — крупно и жирно */
-  .about { padding: clamp(64px, 11vw, 128px) 0; }
-
-  .about p {
-    font-size: clamp(1.9rem, 6vw, 4.25rem);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-    overflow-wrap: break-word;
-  }
-
-  /* Проекты */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 28px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.6s ease;
-  }
-
-  .card h3 {
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-  }
-
-  .card p { color: var(--muted); font-size: 0.97rem; }
-
-  .card-meta {
-    padding: 12px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  #lines-count {
-    color: var(--text);
-    font-size: 0.9rem;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-
-  .chip {
-    padding: 4px 11px;
-    font-size: 0.82rem;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-  }
-
-  .card.soon { background: transparent; border-style: dashed; }
-  .card.soon h3 { color: var(--muted); }
-
-  /* Кнопка GitHub */
-  .cta { border-bottom: none; }
-
-  .btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    width: 100%;
-    padding: 32px 36px;
-    font-size: clamp(1.2rem, 3.2vw, 1.75rem);
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    color: #ffffff;
-    background: var(--accent);
-    border-radius: var(--radius);
-    text-decoration: none;
-    transition: background 0.45s ease, transform 0.45s var(--ease);
-  }
-
-  .btn .arrow {
-    display: inline-block;
-    transition: transform 0.45s var(--ease);
-  }
-
-  .btn:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
-
-  footer {
-    padding: 0 0 48px;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  @media (hover: hover) {
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(37, 99, 235, 0.35);
-      box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.22);
-    }
-    .btn:hover { background: var(--text); }
-    .btn:hover .arrow { transform: translateX(8px); }
-  }
-
-  /* Адаптивность */
-  @media (max-width: 720px) {
-    .container { padding: 0 20px; }
-    .lang { top: 12px; right: 12px; }
-    .grid { grid-template-columns: 1fr; }
-    .card { padding: 22px; }
-    .btn { padding: 24px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-  }
+  @import url('https://googleapis.com');
+  :root { --bg:#f9f9fb; --surface:#ffffff; --text:#000000; --muted:#6b6b73; --line:#e4e4e9; --accent:#3b4cf0; --radius:14px; }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:"Inter",sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; position:relative; }
+  .lang-switcher { position:absolute; top:24px; right:24px; background:var(--surface); border:1px solid var(--line); padding:6px 12px; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; transition:0.2s; z-index:10; }
+  .lang-switcher:hover { border-color:#b4b4bb; transform:translateY(-1px); }
+  .container { width:100%; max-width:960px; margin:0 auto; padding:0 24px; }
+  .hero { padding:clamp(80px,16vw,140px) 0 clamp(40px,8vw,60px); border-bottom:1px solid var(--line); }
+  .hero h1 { font-size:clamp(2.5rem,10vw,5.5rem); font-weight:800; letter-spacing:-0.045em; line-height:0.95; word-break:break-word; }
+  .tag { display:inline-flex; align-items:center; gap:10px; margin-top:24px; padding:8px 16px; font-size:0.9rem; font-weight:600; background:var(--surface); border:1px solid var(--line); border-radius:999px; }
+  .tag::before { content:""; width:8px; height:8px; background:var(--accent); border-radius:50%; }
+  section { padding:clamp(40px,6vw,60px) 0; border-bottom:1px solid var(--line); }
+  h2 { font-size:0.85rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:20px; }
+  
+  /* ТОТ САМЫЙ ЖИРНЫЙ И ПЛOТНЫЙ ТЕКСТ */
+  .about-project p { max-width:760px; font-size:clamp(1.25rem,2.8vw,1.7rem); font-weight:700; line-height:1.4; letter-spacing:-0.03em; color:var(--text); }
+  
+  /* Фичи проекта */
+  .features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:20px; }
+  .f-card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:24px; }
+  .f-card h3 { font-size:1.2rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:8px; }
+  .f-card p { color:var(--muted); font-size:0.95rem; }
+  .code-counter { font-size:1rem; font-weight:800; color:var(--accent); margin-bottom:24px; font-family:'JetBrains Mono',monospace; letter-spacing:-0.02em; }
+  .cta { text-align:left; border-bottom:none; }
+  .btn { display:flex; align-items:center; justify-content:space-between; padding:24px 32px; font-size:clamp(1.1rem,2.5vw,1.4rem); font-weight:700; color:#fff; background:var(--text); border:1px solid var(--text); border-radius:14px; text-decoration:none; transition:0.3s cubic-bezier(.2,.7,.2,1); }
+  .btn:hover { background:var(--accent); border-color:var(--accent); }
+  .btn:hover .arrow { transform:translateX(6px); transition:0.3s; }
+  footer { padding:0 0 40px; font-size:0.85rem; font-weight:500; color:var(--muted); }
+  @media (max-width:680px) { .features-grid { grid-template-columns:1fr; } .lang-switcher { top:16px; right:16px; } }
 </style>
 </head>
 <body>
 
-  <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English">
-    <span data-lang="en">EN</span>
-    <span class="is-active" data-lang="ru">RU</span>
-  </button>
+  <button class="lang-switcher" id="langBtn" onclick="toggleLang()">EN</button>
 
   <header class="hero">
     <div class="container">
-      <h1>mraz0tix</h1>
-      <span class="tag">Python Developer (11 y.o.)</span>
+      <h1 id="main-title">System Toolbox</h1>
+      <span class="tag" id="main-tag">by mraz0tix (11 y.o. Python Developer)</span>
     </div>
   </header>
 
   <main>
-    <section class="about">
+    <!-- Жирный блок про проект -->
+    <section class="about-project">
       <div class="container">
-        <h2 data-i18n="about_title">Обо мне</h2>
-        <p data-i18n="about_text">Изучаю Python и пишу системные скрипты. Создаю инструменты автоматизации, которые экономят время и упрощают рутину.</p>
+        <h2 id="h-about">О проекте</h2>
+        <p id="d-about">Мощная консольная утилита на Python для администрирования. Автоматизирует проверку сети, сканирует активные сокеты и собирает полную сводку о системе, экономя ваше время.</p>
       </div>
     </section>
 
-    <section class="projects">
+    <!-- Характеристики / Что умеет -->
+    <section>
       <div class="container">
-        <h2 data-i18n="projects_title">Проекты</h2>
-        <div class="grid">
-
-          <article class="card">
-            <h3>System Toolbox</h3>
-            <p data-i18n="toolbox_text">Консольная утилита для работы с системой: ss, fastfetch.</p>
-            <div class="card-meta">
-              <p id="lines-count">Код проекта: 82 строки</p>
-            </div>
-            <div class="chips">
-              <span class="chip">Python</span>
-              <span class="chip">CLI</span>
-              <span class="chip">ss</span>
-              <span class="chip">fastfetch</span>
-            </div>
-          </article>
-
-          <article class="card soon">
-            <h3 data-i18n="soon_title">Скоро</h3>
-            <p data-i18n="soon_text">Здесь появится следующий проект.</p>
-            <div class="chips">
-              <span class="chip" data-i18n="soon_badge">В разработке</span>
-            </div>
-          </article>
-
+        <h2 id="h-features">Возможности Toolbox</h2>
+        <div class="code-counter" id="lines-count">Код проекта: 82 строки</div> 
+        
+        <div class="features-grid">
+          <div class="f-card">
+            <h3 id="f1-t">Сеть (Ping)</h3>
+            <p id="f1-d">Быстрая проверка интернет-соединения с серверами Google с помощью отправки ICMP-пакетов через модуль subprocess.</p>
+          </div>
+          <div class="f-card">
+            <h3 id="h-sys">Инфо (Uname)</h3>
+            <p id="d-sys">Вывод подробных данных о ядре операционной системы компьютера в один клик.</p>
+          </div>
+          <div class="f-card">
+            <h3 id="f3-t">Порты (ss)</h3>
+            <p id="f3-d">Мониторинг активных и слушающих сетевых портов системы в реальном времени с ключами -tuln.</p>
+          </div>
+          <div class="f-card">
+            <h3 id="f4-t">Сводка (Fastfetch)</h3>
+            <p id="f4-d">Красивый вывод логотипа ОС и системных характеристик железа с обработкой ошибок установки.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -305,107 +86,65 @@
     <section class="cta">
       <div class="container">
         <a class="btn" href="https://github.com" target="_blank" rel="noopener noreferrer">
-          <span data-i18n="cta">Мой профиль на GitHub</span>
-          <span class="arrow" aria-hidden="true">→</span>
+          <span id="b-txt">Исходный код на GitHub</span><span class="arrow">→</span>
         </a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">© mraz0tix</div>
-  </footer>
+  <footer><div class="container">© mraz0tix</div></footer>
 
-<script>
-(function () {
-  'use strict';
-
-  // Переводы
-  var dict = {
-    ru: {
-      about_title: 'Обо мне',
-      about_text: 'Изучаю Python и пишу системные скрипты. Создаю инструменты автоматизации, которые экономят время и упрощают рутину.',
-      projects_title: 'Проекты',
-      toolbox_text: 'Консольная утилита для работы с системой: ss, fastfetch.',
-      soon_title: 'Скоро',
-      soon_text: 'Здесь появится следующий проект.',
-      soon_badge: 'В разработке',
-      cta: 'Мой профиль на GitHub'
-    },
-    en: {
-      about_title: 'About me',
-      about_text: "I'm learning Python and writing system scripts. I build automation tools that save time and simplify routine tasks.",
-      projects_title: 'Projects',
-      toolbox_text: 'A console utility for working with the system: ss, fastfetch.',
-      soon_title: 'Coming soon',
-      soon_text: 'The next project will appear here.',
-      soon_badge: 'In development',
-      cta: 'My GitHub profile'
+  <script>
+    let lang = 'ru';
+    function toggleLang() {
+      const btn = document.getElementById('langBtn'),
+            hA = document.getElementById('h-about'), dA = document.getElementById('d-about'),
+            hF = document.getElementById('h-features'), lC = document.getElementById('lines-count'),
+            f1T = document.getElementById('f1-t'), f1D = document.getElementById('f1-d'),
+            hS = document.getElementById('h-sys'), dS = document.getElementById('d-sys'),
+            f3T = document.getElementById('f3-t'), f3D = document.getElementById('f3-d'),
+            f4T = document.getElementById('f4-t'), f4D = document.getElementById('f4-d'),
+            bT = document.getElementById('b-txt'), mT = document.getElementById('main-title'),
+            mG = document.getElementById('main-tag');
+      
+      let num = lC.innerText.match(/\d+/); num = num ? num : 82;
+      
+      if (lang === 'ru') {
+        lang = 'en'; btn.innerText = 'RU';
+        mT.innerText = 'System Toolbox';
+        mG.innerText = 'by mraz0tix (11 y.o. Python Developer)';
+        hA.innerText = 'About Project';
+        dA.innerText = 'A powerful Python-based console utility for system administration. It automates network checks, scans active sockets, and gathers full system reports, saving your time.';
+        hF.innerText = 'Toolbox Capabilities';
+        lC.innerText = `Project code: ${num} lines`;
+        f1T.innerText = 'Network (Ping)';
+        f1D.innerText = 'Quick internet connection check to Google servers by sending ICMP packets via the subprocess module.';
+        hS.innerText = 'System Info (Uname)';
+        dS.innerText = 'Displaying detailed information about the operating system kernel in a single click.';
+        f3T.innerText = 'Ports (ss)';
+        f3D.innerText = 'Real-time monitoring of active and listening system network ports using -tuln flags.';
+        f4T.innerText = 'Summary (Fastfetch)';
+        f4D.innerText = 'Beautiful output of the OS logo and hardware specifications with built-in installation error handling.';
+        bT.innerText = 'Source Code on GitHub';
+      } else {
+        lang = 'ru'; btn.innerText = 'EN';
+        mT.innerText = 'System Toolbox';
+        mG.innerText = 'by mraz0tix (11 y.o. Python Developer)';
+        hA.innerText = 'О проекте';
+        dA.innerText = 'Мощная консольная утилита на Python для администрирования. Автоматизирует проверку сети, сканирует активные сокеты и собирает полную сводку о системе, экономя ваше время.';
+        hF.innerText = 'Возможности Toolbox';
+        lC.innerText = `Код проекта: ${num} строки`;
+        f1T.innerText = 'Сеть (Ping)';
+        f1D.innerText = 'Быстрая проверка интернет-соединения с серверами Google с помощью отправки ICMP-пакетов через модуль subprocess.';
+        hS.innerText = 'Инфо (Uname)';
+        dS.innerText = 'Вывод подробных данных о ядре операционной системы компьютера в один клик.';
+        f3T.innerText = 'Порты (ss)';
+        f3D.innerText = 'Мониторинг активных и слушающих сетевых портов системы в реальном времени с ключами -tuln.';
+        f4T.innerText = 'Сводка (Fastfetch)';
+        f4D.innerText = 'Красивый вывод логотипа ОС и системных характеристик железа с обработкой ошибок установки.';
+        bT.innerText = 'Исходный код на GitHub';
+      }
     }
-  };
-
-  var toggle = document.getElementById('lang-toggle');
-  var options = toggle.querySelectorAll('span');
-  var linesEl = document.getElementById('lines-count');
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current = 'ru';
-  var timer = null;
-
-  // Склонение слова «строка» для русского языка
-  function ruLines(n) {
-    var d = n % 10, dd = n % 100;
-    if (d === 1 && dd !== 11) return 'строка';
-    if (d >= 2 && d <= 4 && (dd < 12 || dd > 14)) return 'строки';
-    return 'строк';
-  }
-
-  // Из тега #lines-count читаем ТОЛЬКО число и подставляем его в перевод.
-  // Сам файл не меняется, поэтому автообновление через GitHub Actions работает как раньше.
-  function renderLines(lang) {
-    var match = linesEl.textContent.match(/\d+/);
-    if (!match) return;
-    var n = parseInt(match[0], 10);
-    linesEl.textContent = lang === 'en'
-      ? 'Project code: ' + n + (n === 1 ? ' line' : ' lines')
-      : 'Код проекта: ' + n + ' ' + ruLines(n);
-  }
-
-  function render(lang) {
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var text = dict[lang][el.getAttribute('data-i18n')];
-      if (text) el.textContent = text;
-    });
-    renderLines(lang);
-    document.documentElement.lang = lang;
-  }
-
-  function markActive(lang) {
-    options.forEach(function (o) {
-      o.classList.toggle('is-active', o.getAttribute('data-lang') === lang);
-    });
-    toggle.setAttribute('aria-label', lang === 'ru' ? 'Switch to English' : 'Переключить на русский');
-  }
-
-  function setLang(lang) {
-    if (lang === current) return;
-    current = lang;
-    markActive(lang);
-
-    var nodes = document.querySelectorAll('[data-i18n], #lines-count');
-    nodes.forEach(function (n) { n.classList.add('is-fading'); });
-
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      render(lang);
-      nodes.forEach(function (n) { n.classList.remove('is-fading'); });
-    }, reduceMotion ? 0 : 170);
-  }
-
-  toggle.addEventListener('click', function () {
-    setLang(current === 'ru' ? 'en' : 'ru');
-  });
-})();
-</script>
-
+  </script>
 </body>
 </html>
