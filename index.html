@@ -68,7 +68,7 @@
     padding: 0 24px;
   }
 
-  /* Панель управления: тема + язык */
+  /* Панель управления: тема + язык (одинаковые переключатели с ползунком) */
   .controls {
     position: fixed;
     top: 16px;
@@ -79,7 +79,14 @@
   }
 
   .lang, .theme {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 64px;
+    padding: 3px;
     font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--text);
     background: var(--glass);
     -webkit-backdrop-filter: blur(10px);
@@ -95,32 +102,8 @@
     outline-offset: 3px;
   }
 
-  /* Переключатель языка */
-  .lang {
-    display: inline-flex;
-    padding: 3px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .lang span {
-    padding: 7px 12px;
-    line-height: 1;
-    border-radius: 999px;
-    transition: background 0.35s ease, color 0.35s ease;
-  }
-
-  .lang span.is-active { background: var(--inv-bg); color: var(--inv-fg); }
-
-  /* Переключатель темы */
-  .theme {
-    position: relative;
-    display: inline-flex;
-    width: 64px;
-    padding: 3px;
-  }
-
-  .theme-thumb {
+  /* Ползунок (общий для языка и темы) */
+  .lang-thumb, .theme-thumb {
     position: absolute;
     top: 3px;
     bottom: 3px;
@@ -131,31 +114,35 @@
     transition: transform 0.4s var(--ease), background-color 0.45s ease;
   }
 
-  .theme-opt {
+  :root[data-theme="dark"] .theme-thumb,
+  .lang[data-current="ru"] .lang-thumb { transform: translateX(100%); }
+
+  .lang-opt, .theme-opt {
     position: relative;
     z-index: 1;
-    flex: 1;
     display: grid;
     place-items: center;
     color: var(--muted);
     transition: color 0.35s ease;
   }
 
+  .lang-opt { padding: 7px 0; line-height: 1; }
+  .lang-opt.is-active { color: var(--inv-fg); }
+
   .theme-opt svg { width: 15px; height: 15px; }
 
   .theme .sun { color: var(--inv-fg); }
   :root[data-theme="dark"] .theme .sun { color: var(--muted); }
   :root[data-theme="dark"] .theme .moon { color: var(--inv-fg); }
-  :root[data-theme="dark"] .theme-thumb { transform: translateX(100%); }
 
   /* Плавная смена темы (класс добавляется на время переключения) */
   html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
     transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease,
-                box-shadow 0.45s ease, transform 0.4s var(--ease), opacity 0.16s ease !important;
+                box-shadow 0.45s ease, transform 0.4s var(--ease), opacity 0.22s ease !important;
   }
 
   /* Плавная смена текста при переводе */
-  [data-i18n], #lines-count { transition: opacity 0.16s ease; }
+  [data-i18n], #lines-count { transition: opacity 0.22s ease; }
   .is-fading { opacity: 0; }
 
   /* Hero */
@@ -377,9 +364,10 @@
       </span>
     </button>
 
-    <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English">
-      <span data-lang="en">EN</span>
-      <span class="is-active" data-lang="ru">RU</span>
+    <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English" data-current="ru">
+      <span class="lang-thumb" aria-hidden="true"></span>
+      <span class="lang-opt" data-lang="en">EN</span>
+      <span class="lang-opt is-active" data-lang="ru">RU</span>
     </button>
   </div>
 
@@ -481,7 +469,7 @@
 
   var root = document.documentElement;
   var toggle = document.getElementById('lang-toggle');
-  var options = toggle.querySelectorAll('span');
+  var options = toggle.querySelectorAll('[data-lang]');
   var themeBtn = document.getElementById('theme-toggle');
   var metaTheme = document.querySelector('meta[name="theme-color"]');
   var linesEl = document.getElementById('lines-count');
@@ -522,7 +510,9 @@
     root.lang = lang;
   }
 
+  // Ползунок переключателя языка двигается сразу, как и у темы
   function markActive(lang) {
+    toggle.setAttribute('data-current', lang);
     options.forEach(function (o) {
       o.classList.toggle('is-active', o.getAttribute('data-lang') === lang);
     });
@@ -541,7 +531,7 @@
     timer = setTimeout(function () {
       render(lang);
       nodes.forEach(function (n) { n.classList.remove('is-fading'); });
-    }, reduceMotion ? 0 : 170);
+    }, reduceMotion ? 0 : 230);
   }
 
   // Тема
