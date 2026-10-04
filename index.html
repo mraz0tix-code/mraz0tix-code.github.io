@@ -291,6 +291,33 @@
   .card.soon { background: transparent; border-style: dashed; }
   .card.soon h3 { color: var(--muted); }
 
+  /* Контакты */
+  .contact-label {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .mail {
+    display: inline-block;
+    font-size: clamp(1.25rem, 4.2vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    overflow-wrap: anywhere;
+    transition: color 0.35s ease;
+  }
+
+  .mail:focus-visible {
+    outline: 2px solid var(--accent-ink);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
   /* Кнопка GitHub */
   .cta { border-bottom: none; }
 
@@ -333,6 +360,7 @@
     }
     .card-link:hover { text-decoration: underline; text-underline-offset: 4px; }
     .card-link:hover .arrow { transform: translate(2px, -2px); }
+    .mail:hover { color: var(--accent-ink); }
     .btn:hover { background: var(--inv-bg); color: var(--inv-fg); }
     .btn:hover .arrow { transform: translateX(8px); }
   }
@@ -395,7 +423,7 @@
             <h3>System Toolbox</h3>
             <p data-i18n="toolbox_text">Консольная утилита для работы с системой: ss, fastfetch.</p>
             <div class="card-meta">
-              <p id="lines-count">Код проекта: 64 строки</p>
+              <p id="lines-count">Код проекта: 61 строки</p>
               <a class="card-link" href="https://github.com/mraz0tix-code/mraz0tix/blob/main/system_tool.py" target="_blank" rel="noopener noreferrer">
                 <span data-i18n="toolbox_link">Приложение на GitHub</span>
                 <span class="arrow" aria-hidden="true">↗</span>
@@ -418,6 +446,14 @@
           </article>
 
         </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="container">
+        <h2 data-i18n="contact_title">Контакты</h2>
+        <p class="contact-label" data-i18n="contact_label">Почта для связи</p>
+        <a class="mail" href="mailto:mraz0tixcode@gmail.com">mraz0tixcode@gmail.com</a>
       </div>
     </section>
 
@@ -450,6 +486,8 @@
       soon_title: 'Скоро',
       soon_text: 'Здесь появится следующий проект.',
       soon_badge: 'В разработке',
+      contact_title: 'Контакты',
+      contact_label: 'Почта для связи',
       cta: 'Мой профиль на GitHub',
       theme_label: 'Тёмная тема'
     },
@@ -462,6 +500,8 @@
       soon_title: 'Coming soon',
       soon_text: 'The next project will appear here.',
       soon_badge: 'In development',
+      contact_title: 'Contact',
+      contact_label: 'Contact email',
       cta: 'My GitHub profile',
       theme_label: 'Dark theme'
     }
