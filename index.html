@@ -5,17 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mraz0tix — Python Developer</title>
 <style>
-  /* Подключаем премиальный шрифт Inter (разной жирности) */
   @import url('https://googleapis.com');
 
   :root {
     --bg: #f9f9fb;
     --surface: #ffffff;
-    --text: #000000; /* Делаем текст максимально контрастным и глубоким */
+    --text: #000000;
     --muted: #6b6b73;
     --line: #e4e4e9;
-    --accent: #2563eb; /* Яркий и сочный синий */
+    --accent: #2563eb;
     --radius: 14px;
+    
+    /* Цвета для терминала "Обо мне" */
+    --terminal-bg: #0d1117;
+    --terminal-text: #c9d1d9;
+    --terminal-keyword: #ff79c6;
+    --terminal-string: #f1fa8c;
+    --terminal-comment: #8b949e;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,7 +51,7 @@
 
   .hero h1 {
     font-size: clamp(3rem, 12vw, 7rem);
-    font-weight: 800; /* Ультра-жирный заголовок */
+    font-weight: 800;
     letter-spacing: -0.05em;
     line-height: 0.9;
   }
@@ -84,15 +90,24 @@
     margin-bottom: 24px;
   }
 
-  /* КРУТОЙ И ЖИРНЫЙ СТИЛЬ ДЛЯ БЛОКА "ОБО МНЕ" */
-  .about p {
-    max-width: 720px;
-    font-size: clamp(1.3rem, 3vw, 1.8rem); /* Текст теперь крупный и важный */
-    font-weight: 600; /* Плотное начертание вместо обычного тонкого */
-    line-height: 1.4;
-    letter-spacing: -0.03em;
-    color: var(--text);
+  /* ТЕРМИНАЛ ВМЕСТО ОБЫЧНОГО ШРИФТА ОБО МНЕ */
+  .terminal {
+    background: var(--terminal-bg);
+    border-radius: 12px;
+    padding: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--terminal-text);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #21262d;
+    overflow-x: auto;
   }
+
+  .terminal .comment { color: var(--terminal-comment); }
+  .terminal .keyword { color: var(--terminal-keyword); font-weight: 600; }
+  .terminal .string { color: var(--terminal-string); }
+  .terminal .indent { margin-left: 2ch; display: inline-block; }
 
   /* Projects */
   .grid {
@@ -133,7 +148,7 @@
     font-weight: 700;
     color: var(--accent);
     margin-top: 5px;
-    letter-spacing: -0.01em;
+    font-family: 'JetBrains Mono', monospace;
   }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
@@ -212,7 +227,15 @@
     <section class="about">
       <div class="container">
         <h2>Обо мне</h2>
-        <p>Изучаю Python и пишу системные скрипты. Создаю инструменты автоматизации, которые экономят время и упрощают рутину.</p>
+        <!-- Блок стилизован под код Python внутри терминала -->
+        <div class="terminal">
+          <span class="comment"># Инфо об авторе</span><br>
+          <span class="keyword">developer</span> = {<br>
+          <span class="indent"></span><span class="string">"name"</span>: <span class="string">"mraz0tix"</span>,<br>
+          <span class="indent"></span><span class="string">"skills"</span>: [<span class="string">"Python"</span>, <span class="string">"Bash"</span>, <span class="string">"Git"</span>],<br>
+          <span class="indent"></span><span class="string">"focus"</span>: <span class="string">"системные скрипты и автоматизация рутины"</span><br>
+          }
+        </div>
       </div>
     </section>
 
