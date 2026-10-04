@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mraz0tix — Python Developer</title>
 <style>
-  /* Подключаем шрифт Noto Sans с весом 400 (Regular) и 700 (Bold) для заголовков */
+  /* Подключаем премиальный шрифт Inter (разной жирности) */
   @import url('https://googleapis.com');
 
   :root {
     --bg: #f9f9fb;
     --surface: #ffffff;
-    --text: #111111;
+    --text: #000000; /* Делаем текст максимально контрастным и глубоким */
     --muted: #6b6b73;
     --line: #e4e4e9;
-    --accent: #3b4cf0;
+    --accent: #2563eb; /* Яркий и сочный синий */
     --radius: 14px;
   }
 
@@ -25,9 +25,8 @@
   body {
     background: var(--bg);
     color: var(--text);
-    /* Устанавливаем Noto Sans как основной шрифт для всего сайта */
-    font-family: "Noto Sans", sans-serif;
-    line-height: 1.6;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -45,11 +44,10 @@
   }
 
   .hero h1 {
-    font-size: clamp(2.75rem, 11vw, 6.5rem);
-    font-weight: 700;
-    letter-spacing: -0.045em;
-    line-height: 1;
-    word-break: break-word;
+    font-size: clamp(3rem, 12vw, 7rem);
+    font-weight: 800; /* Ультра-жирный заголовок */
+    letter-spacing: -0.05em;
+    line-height: 0.9;
   }
 
   .tag {
@@ -59,7 +57,7 @@
     margin-top: 28px;
     padding: 8px 16px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text);
     background: var(--surface);
     border: 1px solid var(--line);
@@ -68,8 +66,8 @@
 
   .tag::before {
     content: "";
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     background: var(--accent);
     border-radius: 50%;
   }
@@ -78,21 +76,22 @@
   section { padding: clamp(48px, 8vw, 80px) 0; border-bottom: 1px solid var(--line); }
 
   h2 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--muted);
-    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-bottom: 24px;
   }
 
-  /* Блок "Обо мне" со шрифтом Noto Sans Regular */
+  /* КРУТОЙ И ЖИРНЫЙ СТИЛЬ ДЛЯ БЛОКА "ОБО МНЕ" */
   .about p {
-    max-width: 640px;
-    font-family: "Noto Sans", sans-serif;
-    font-weight: 400; /* Начертание Regular */
-    font-size: clamp(1.05rem, 2.4vw, 1.35rem);
-    line-height: 1.6;
-    color: #27272a;
+    max-width: 720px;
+    font-size: clamp(1.3rem, 3vw, 1.8rem); /* Текст теперь крупный и важный */
+    font-weight: 600; /* Плотное начертание вместо обычного тонкого */
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    color: var(--text);
   }
 
   /* Projects */
@@ -117,30 +116,32 @@
 
   .card:hover {
     transform: translateY(-4px);
-    border-color: #d3d3da;
-    box-shadow: 0 18px 40px -18px rgba(17, 17, 17, 0.18);
+    border-color: #b4b4bb;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
   }
 
   .card h3 {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
-  .card p { color: var(--muted); font-size: 0.97rem; }
+  .card p { color: var(--muted); font-size: 1rem; }
 
   .code-counter {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--accent);
     margin-top: 5px;
+    letter-spacing: -0.01em;
   }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
 
   .chip {
-    padding: 4px 11px;
-    font-size: 0.82rem;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--text);
     background: var(--bg);
     border: 1px solid var(--line);
@@ -164,7 +165,7 @@
     gap: 24px;
     width: 100%;
     padding: 28px 32px;
-    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #ffffff;
@@ -172,7 +173,7 @@
     border: 1px solid var(--text);
     border-radius: var(--radius);
     text-decoration: none;
-    transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(.2,.7,.2,1);
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.4s cubic-bezier(.2,.7,.2,1);
   }
 
   .btn .arrow {
@@ -186,6 +187,7 @@
   footer {
     padding: 0 0 48px;
     font-size: 0.85rem;
+    font-weight: 500;
     color: var(--muted);
   }
 
