@@ -3,20 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f9f9fb">
 <title>mraz0tix — Python Developer</title>
+<script>
+  // Применяем сохранённую тему до отрисовки, чтобы не было вспышки
+  try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+  /* Светлая тема (по умолчанию) */
   :root {
+    color-scheme: light;
     --bg: #f9f9fb;
     --surface: #ffffff;
+    --chip: #f9f9fb;
     --text: #000000;
     --muted: #5c5c66;
     --line: #e5e5ea;
     --accent: #2563eb;
+    --accent-ink: #2563eb;
+    --inv-bg: #000000;
+    --inv-fg: #ffffff;
+    --glass: rgba(255, 255, 255, 0.85);
+    --hover-line: rgba(37, 99, 235, 0.35);
+    --shadow: rgba(0, 0, 0, 0.22);
     --radius: 16px;
     --ease: cubic-bezier(.2, .7, .2, 1);
+  }
+
+  /* Тёмная тема */
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #000000;
+    --surface: #0d0d0f;
+    --chip: #161619;
+    --text: #ffffff;
+    --muted: #9b9ba5;
+    --line: #232328;
+    --accent-ink: #60a5fa;
+    --inv-bg: #ffffff;
+    --inv-fg: #000000;
+    --glass: rgba(13, 13, 15, 0.85);
+    --hover-line: rgba(96, 165, 250, 0.45);
+    --shadow: rgba(37, 99, 235, 0.3);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,35 +68,91 @@
     padding: 0 24px;
   }
 
-  /* Переключатель языка */
-  .lang {
+  /* Панель управления: тема + язык */
+  .controls {
     position: fixed;
     top: 16px;
     right: 16px;
     z-index: 10;
-    display: inline-flex;
-    padding: 3px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .lang, .theme {
     font-family: inherit;
-    font-size: 0.8rem;
-    font-weight: 600;
     color: var(--text);
-    background: rgba(255, 255, 255, 0.85);
+    background: var(--glass);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border: 1px solid var(--line);
     border-radius: 999px;
     cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+
+  .lang:focus-visible, .theme:focus-visible {
+    outline: 2px solid var(--accent-ink);
+    outline-offset: 3px;
+  }
+
+  /* Переключатель языка */
+  .lang {
+    display: inline-flex;
+    padding: 3px;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
 
   .lang span {
-    padding: 6px 12px;
+    padding: 7px 12px;
     line-height: 1;
     border-radius: 999px;
     transition: background 0.35s ease, color 0.35s ease;
   }
 
-  .lang span.is-active { background: var(--text); color: #ffffff; }
-  .lang:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .lang span.is-active { background: var(--inv-bg); color: var(--inv-fg); }
+
+  /* Переключатель темы */
+  .theme {
+    position: relative;
+    display: inline-flex;
+    width: 64px;
+    padding: 3px;
+  }
+
+  .theme-thumb {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    background: var(--inv-bg);
+    border-radius: 999px;
+    transition: transform 0.4s var(--ease), background-color 0.45s ease;
+  }
+
+  .theme-opt {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    transition: color 0.35s ease;
+  }
+
+  .theme-opt svg { width: 15px; height: 15px; }
+
+  .theme .sun { color: var(--inv-fg); }
+  :root[data-theme="dark"] .theme .sun { color: var(--muted); }
+  :root[data-theme="dark"] .theme .moon { color: var(--inv-fg); }
+  :root[data-theme="dark"] .theme-thumb { transform: translateX(100%); }
+
+  /* Плавная смена темы (класс добавляется на время переключения) */
+  html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+    transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease,
+                box-shadow 0.45s ease, transform 0.4s var(--ease), opacity 0.16s ease !important;
+  }
 
   /* Плавная смена текста при переводе */
   [data-i18n], #lines-count { transition: opacity 0.16s ease; }
@@ -190,7 +276,7 @@
     gap: 6px;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--accent-ink);
     text-decoration: none;
   }
 
@@ -200,7 +286,7 @@
   }
 
   .card-link:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent-ink);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -210,7 +296,7 @@
   .chip {
     padding: 4px 11px;
     font-size: 0.82rem;
-    background: var(--bg);
+    background: var(--chip);
     border: 1px solid var(--line);
     border-radius: 999px;
   }
@@ -235,7 +321,7 @@
     background: var(--accent);
     border-radius: var(--radius);
     text-decoration: none;
-    transition: background 0.45s ease, transform 0.45s var(--ease);
+    transition: background 0.45s ease, color 0.45s ease, transform 0.45s var(--ease);
   }
 
   .btn .arrow {
@@ -252,21 +338,22 @@
   }
 
   @media (hover: hover) {
+    .lang:hover, .theme:hover { border-color: var(--muted); }
     .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(37, 99, 235, 0.35);
-      box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.22);
+      border-color: var(--hover-line);
+      box-shadow: 0 24px 48px -24px var(--shadow);
     }
     .card-link:hover { text-decoration: underline; text-underline-offset: 4px; }
     .card-link:hover .arrow { transform: translate(2px, -2px); }
-    .btn:hover { background: var(--text); }
+    .btn:hover { background: var(--inv-bg); color: var(--inv-fg); }
     .btn:hover .arrow { transform: translateX(8px); }
   }
 
   /* Адаптивность */
   @media (max-width: 720px) {
     .container { padding: 0 20px; }
-    .lang { top: 12px; right: 12px; }
+    .controls { top: 12px; right: 12px; gap: 6px; }
     .grid { grid-template-columns: 1fr; }
     .card { padding: 22px; }
     .btn { padding: 24px; }
@@ -279,10 +366,22 @@
 </head>
 <body>
 
-  <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English">
-    <span data-lang="en">EN</span>
-    <span class="is-active" data-lang="ru">RU</span>
-  </button>
+  <div class="controls">
+    <button class="theme" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Тёмная тема">
+      <span class="theme-thumb" aria-hidden="true"></span>
+      <span class="theme-opt sun" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </span>
+      <span class="theme-opt moon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </span>
+    </button>
+
+    <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English">
+      <span data-lang="en">EN</span>
+      <span class="is-active" data-lang="ru">RU</span>
+    </button>
+  </div>
 
   <header class="hero">
     <div class="container">
@@ -363,7 +462,8 @@
       soon_title: 'Скоро',
       soon_text: 'Здесь появится следующий проект.',
       soon_badge: 'В разработке',
-      cta: 'Мой профиль на GitHub'
+      cta: 'Мой профиль на GitHub',
+      theme_label: 'Тёмная тема'
     },
     en: {
       about_title: 'About me',
@@ -374,16 +474,21 @@
       soon_title: 'Coming soon',
       soon_text: 'The next project will appear here.',
       soon_badge: 'In development',
-      cta: 'My GitHub profile'
+      cta: 'My GitHub profile',
+      theme_label: 'Dark theme'
     }
   };
 
+  var root = document.documentElement;
   var toggle = document.getElementById('lang-toggle');
   var options = toggle.querySelectorAll('span');
+  var themeBtn = document.getElementById('theme-toggle');
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
   var linesEl = document.getElementById('lines-count');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = 'ru';
   var timer = null;
+  var themeTimer = null;
 
   // Русский префикс (всё до цифры) берём прямо из тега, а не дублируем в JS
   var ruLabel = linesEl.textContent.replace(/\d[\s\S]*$/, '');
@@ -413,7 +518,8 @@
       if (text) el.textContent = text;
     });
     renderLines(lang);
-    document.documentElement.lang = lang;
+    themeBtn.setAttribute('aria-label', dict[lang].theme_label);
+    root.lang = lang;
   }
 
   function markActive(lang) {
@@ -438,11 +544,34 @@
     }, reduceMotion ? 0 : 170);
   }
 
+  // Тема
+  function syncTheme() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    themeBtn.setAttribute('aria-checked', dark ? 'true' : 'false');
+    if (metaTheme) metaTheme.setAttribute('content', dark ? '#000000' : '#f9f9fb');
+  }
+
+  function setTheme(theme) {
+    if (!reduceMotion) {
+      root.classList.add('theme-anim');
+      clearTimeout(themeTimer);
+      themeTimer = setTimeout(function () { root.classList.remove('theme-anim'); }, 500);
+    }
+    root.setAttribute('data-theme', theme);
+    syncTheme();
+    try { localStorage.setItem('theme', theme); } catch (e) {}
+  }
+
   // Правильное склонение сразу при загрузке (61 строка, 82 строки, 100 строк)
   renderLines('ru');
+  syncTheme();
 
   toggle.addEventListener('click', function () {
     setLang(current === 'ru' ? 'en' : 'ru');
+  });
+
+  themeBtn.addEventListener('click', function () {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 })();
 </script>
