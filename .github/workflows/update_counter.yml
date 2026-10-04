@@ -1,0 +1,37 @@
+name: Update Code Lines Counter
+
+on:
+  push:
+    branches:
+      - main  # Скрипт срабатывает каждый раз, когда ты обновляешь код
+
+jobs:
+  update-lines:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Count lines in Python file
+      id: count
+      run: |
+        # Считаем строчки в файле toolbox.py без учета пустых строк
+        LINES=$(grep -c '[^[:space:]]' toolbox.py)
+        echo "Lines count: $LINES"
+        echo "lines=$LINES" >> $GITHUB_OUTPUT
+
+    - name: Update index.html
+      run: |
+        LINES_COUNT=${{ steps.count.outputs.lines }}
+        # Заменяем старую строчку в index.html на актуальное число строк
+        sed -i "s/id=\"lines-count\">.*</id=\"lines-count\">Код проекта: $LINES_COUNT строки</g" index.html
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add index.html
+        git diff-index --quiet HEAD || git commit -m "🤖 Автообновление: строк кода в Toolbox теперь ${{ steps.count.outputs.lines }}"
+        git push
