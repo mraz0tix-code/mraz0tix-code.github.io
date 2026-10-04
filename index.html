@@ -1,161 +1,257 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mraz0tix | Python Developer</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #f9f9fb;
-            color: #111217;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-        .wrapper {
-            max-width: 480px;
-            width: 100%;
-        }
-        header {
-            margin-bottom: 35px;
-        }
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            color: #000000;
-        }
-        .badge {
-            display: inline-block;
-            background-color: #eef0f3;
-            color: #4a5568;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid #e2e8f0;
-        }
-        .about {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #4a5568;
-            margin-bottom: 40px;
-        }
-        .section-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #a0aec0;
-            margin-bottom: 15px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.25s ease;
-        }
-        .card:hover {
-            border-color: #cbd5e0;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
-        }
-        .card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #1a202c;
-        }
-        .card p {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #718096;
-        }
-        .card .lines-count {
-            display: inline-block;
-            margin-top: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #3182ce;
-        }
-        .card.future {
-            border-style: dashed;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100px;
-        }
-        .card.future p {
-            color: #a0aec0;
-            font-weight: 500;
-        }
-        .btn-github {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #111217;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            padding: 14px;
-            border-radius: 10px;
-            transition: background-color 0.2s ease;
-            width: 100%;
-            text-align: center;
-        }
-        .btn-github:hover {
-            background-color: #2d3748;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mraz0tix — Python Developer</title>
+<style>
+  :root {
+    --bg: #f9f9fb;
+    --surface: #ffffff;
+    --text: #111111;
+    --muted: #6b6b73;
+    --line: #e4e4e9;
+    --accent: #3b4cf0;
+    --radius: 14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: clamp(80px, 16vw, 160px) 0 clamp(56px, 10vw, 96px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.75rem, 11vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    word-break: break-word;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+
+  .tag::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* Sections */
+  section { padding: clamp(48px, 8vw, 80px) 0; border-bottom: 1px solid var(--line); }
+
+  h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+    margin-bottom: 24px;
+  }
+
+  .about p {
+    max-width: 640px;
+    font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+    line-height: 1.55;
+    letter-spacing: -0.015em;
+  }
+
+  /* Projects */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: transform 0.5s cubic-bezier(.2,.7,.2,1),
+                box-shadow 0.5s cubic-bezier(.2,.7,.2,1),
+                border-color 0.5s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: #d3d3da;
+    box-shadow: 0 18px 40px -18px rgba(17, 17, 17, 0.18);
+  }
+
+  .card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .card p { color: var(--muted); font-size: 0.97rem; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
+
+  .chip {
+    padding: 4px 11px;
+    font-size: 0.82rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+
+  .card.soon {
+    background: transparent;
+    border-style: dashed;
+  }
+
+  .card.soon h3 { color: var(--muted); }
+
+  /* CTA */
+  .cta { text-align: left; border-bottom: none; }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    padding: 28px 32px;
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    background: var(--text);
+    border: 1px solid var(--text);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(.2,.7,.2,1);
+  }
+
+  .btn .arrow {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+  }
+
+  .btn:hover { background: var(--accent); border-color: var(--accent); }
+  .btn:hover .arrow { transform: translateX(6px); }
+
+  .btn:focus-visible, .card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  footer {
+    padding: 0 0 48px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 680px) {
+    .grid { grid-template-columns: 1fr; }
+    .container { padding: 0 20px; }
+    .card { padding: 22px; }
+    .btn { padding: 22px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    .card:hover { transform: none; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <header>
-            <h1>mraz0tix</h1>
-            <span class="badge">Python Developer • 11 y.o.</span>
-        </header>
-
-        <section class="about">
-            <p>Изучаю Python, пишу системные скрипты и создаю инструменты автоматизации. Верю, что хороший код должен быть простым и эффективным.</p>
-        </section>
-
-        <h2 class="section-title">Проекты</h2>
-        <section class="grid">
-            <!-- Карточка твоего тулбокса -->
-            <div class="card">
-                <h3>System Toolbox</h3>
-                <p>Консольная утилита для администрирования. Проверяет сеть, пингует сервера, сканирует порты через ss и выводит инфо системы.</p>
-                <span class="lines-count">82 строки кода</span>
-            </div>
-            
-            <!-- Заглушка под будущий проект -->
-            <div class="card future">
-                <p>+ Новый проект в разработке</p>
-            </div>
-        </section>
-
-        <!-- Кнопка на Гитхаб -->
-        <a href="https://github.com" class="btn-github" target="_blank">Открыть GitHub Профиль</a>
+  <header class="hero">
+    <div class="container">
+      <h1>mraz0tix</h1>
+      <span class="tag">Python Developer (11 y.o.)</span>
     </div>
+  </header>
+
+  <main>
+    <section class="about">
+      <div class="container">
+        <h2>Обо мне</h2>
+        <p>Изучаю Python и пишу системные скрипты. Создаю инструменты автоматизации, которые экономят время и упрощают рутину.</p>
+      </div>
+    </section>
+
+    <section class="projects">
+      <div class="container">
+        <h2>Проекты</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>System Toolbox</h3>
+            <p>Консольная утилита для работы с системой: проверка сети, просмотр сокетов через ss и сводка о системе через fastfetch.</p>
+            <div class="chips">
+              <span class="chip">Python</span>
+              <span class="chip">CLI</span>
+              <span class="chip">ss</span>
+              <span class="chip">fastfetch</span>
+            </div>
+          </article>
+
+          <article class="card soon">
+            <h3>Скоро</h3>
+            <p>Здесь появится следующий проект. Идея уже в работе.</p>
+            <div class="chips">
+              <span class="chip">В разработке</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <a class="btn" href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <span>Мой профиль на GitHub</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© mraz0tix</div>
+  </footer>
 
 </body>
 </html>
+```
