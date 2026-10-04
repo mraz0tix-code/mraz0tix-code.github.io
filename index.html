@@ -2,10 +2,160 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Мой сайт на GitHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mraz0tix | Python Developer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f9f9fb;
+            color: #111217;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .wrapper {
+            max-width: 480px;
+            width: 100%;
+        }
+        header {
+            margin-bottom: 35px;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: #000000;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #eef0f3;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .about {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a0aec0;
+            margin-bottom: 15px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.25s ease;
+        }
+        .card:hover {
+            border-color: #cbd5e0;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+        }
+        .card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #1a202c;
+        }
+        .card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #718096;
+        }
+        .card .lines-count {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #3182ce;
+        }
+        .card.future {
+            border-style: dashed;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+        }
+        .card.future p {
+            color: #a0aec0;
+            font-weight: 500;
+        }
+        .btn-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #111217;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-github:hover {
+            background-color: #2d3748;
+        }
+    </style>
 </head>
 <body>
-    <h1>Привет! Это сайт mraz0tix-code</h1>
-    <p>Сайт успешно работает на GitHub Pages.</p>
+
+    <div class="wrapper">
+        <header>
+            <h1>mraz0tix</h1>
+            <span class="badge">Python Developer • 11 y.o.</span>
+        </header>
+
+        <section class="about">
+            <p>Изучаю Python, пишу системные скрипты и создаю инструменты автоматизации. Верю, что хороший код должен быть простым и эффективным.</p>
+        </section>
+
+        <h2 class="section-title">Проекты</h2>
+        <section class="grid">
+            <!-- Карточка твоего тулбокса -->
+            <div class="card">
+                <h3>System Toolbox</h3>
+                <p>Консольная утилита для администрирования. Проверяет сеть, пингует сервера, сканирует порты через ss и выводит инфо системы.</p>
+                <span class="lines-count">82 строки кода</span>
+            </div>
+            
+            <!-- Заглушка под будущий проект -->
+            <div class="card future">
+                <p>+ Новый проект в разработке</p>
+            </div>
+        </section>
+
+        <!-- Кнопка на Гитхаб -->
+        <a href="https://github.com" class="btn-github" target="_blank">Открыть GitHub Профиль</a>
+    </div>
+
 </body>
 </html>
