@@ -6,215 +6,41 @@
 <title>mraz0tix — Python Developer</title>
 <style>
   @import url('https://googleapis.com');
-
-  :root {
-    --bg: #f9f9fb;
-    --surface: #ffffff;
-    --text: #000000;
-    --muted: #6b6b73;
-    --line: #e4e4e9;
-    --accent: #2563eb;
-    --radius: 14px;
-    
-    /* Цвета для терминала "Обо мне" */
-    --terminal-bg: #0d1117;
-    --terminal-text: #c9d1d9;
-    --terminal-keyword: #ff79c6;
-    --terminal-string: #f1fa8c;
-    --terminal-comment: #8b949e;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Inter", sans-serif;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* Hero */
-  .hero {
-    padding: clamp(80px, 16vw, 160px) 0 clamp(56px, 10vw, 96px);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .hero h1 {
-    font-size: clamp(3rem, 12vw, 7rem);
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    line-height: 0.9;
-  }
-
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 28px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text);
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-  }
-
-  .tag::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  /* Sections */
-  section { padding: clamp(48px, 8vw, 80px) 0; border-bottom: 1px solid var(--line); }
-
-  h2 {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 24px;
-  }
-
-  /* ТЕРМИНАЛ ВМЕСТО ОБЫЧНОГО ШРИФТА ОБО МНЕ */
-  .terminal {
-    background: var(--terminal-bg);
-    border-radius: 12px;
-    padding: 24px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-    line-height: 1.6;
-    color: var(--terminal-text);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid #21262d;
-    overflow-x: auto;
-  }
-
-  .terminal .comment { color: var(--terminal-comment); }
-  .terminal .keyword { color: var(--terminal-keyword); font-weight: 600; }
-  .terminal .string { color: var(--terminal-string); }
-  .terminal .indent { margin-left: 2ch; display: inline-block; }
-
-  /* Projects */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 28px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    transition: transform 0.5s cubic-bezier(.2,.7,.2,1),
-                box-shadow 0.5s cubic-bezier(.2,.7,.2,1),
-                border-color 0.5s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: #b4b4bb;
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-  }
-
-  .card h3 {
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .card p { color: var(--muted); font-size: 1rem; }
-
-  .code-counter {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-top: 5px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
-
-  .chip {
-    padding: 5px 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text);
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-  }
-
-  .card.soon {
-    background: transparent;
-    border-style: dashed;
-  }
-
-  .card.soon h3 { color: var(--muted); }
-
-  /* CTA */
-  .cta { text-align: left; border-bottom: none; }
-
-  .btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    width: 100%;
-    padding: 28px 32px;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-    background: var(--text);
-    border: 1px solid var(--text);
-    border-radius: var(--radius);
-    text-decoration: none;
-    transition: background 0.3s ease, border-color 0.3s ease, transform 0.4s cubic-bezier(.2,.7,.2,1);
-  }
-
-  .btn .arrow {
-    display: inline-block;
-    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
-  }
-
-  .btn:hover { background: var(--accent); border-color: var(--accent); }
-  .btn:hover .arrow { transform: translateX(6px); }
-
-  footer {
-    padding: 0 0 48px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--muted);
-  }
-
-  @media (max-width: 680px) {
-    .grid { grid-template-columns: 1fr; }
-    .container { padding: 0 20px; }
-    .card { padding: 22px; }
-    .btn { padding: 22px 24px; }
-  }
+  :root { --bg:#f9f9fb; --surface:#ffffff; --text:#000000; --muted:#6b6b73; --line:#e4e4e9; --accent:#2563eb; }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:"Inter",sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; position:relative; }
+  .lang-switcher { position:absolute; top:24px; right:24px; background:var(--surface); border:1px solid var(--line); padding:6px 12px; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; transition:0.2s; }
+  .lang-switcher:hover { border-color:#b4b4bb; transform:translateY(-1px); }
+  .container { width:100%; max-width:960px; margin:0 auto; padding:0 24px; }
+  .hero { padding:clamp(60px,12vw,120px) 0 clamp(40px,8vw,70px); border-bottom:1px solid var(--line); }
+  .hero h1 { font-size:clamp(3rem,12vw,7rem); font-weight:800; letter-spacing:-0.05em; line-height:0.9; }
+  .tag { display:inline-flex; align-items:center; gap:10px; margin-top:24px; padding:8px 16px; font-size:0.9rem; font-weight:600; background:var(--surface); border:1px solid var(--line); border-radius:999px; }
+  .tag::before { content:""; width:8px; height:8px; background:var(--accent); border-radius:50%; }
+  section { padding:clamp(40px,6vw,60px) 0; border-bottom:1px solid var(--line); }
+  h2 { font-size:0.85rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:20px; }
+  .terminal { background:#0d1117; border-radius:12px; padding:20px; font-family:'JetBrains Mono',monospace; font-size:clamp(0.85rem,2vw,1.05rem); line-height:1.6; color:#c9d1d9; border:1px solid #21262d; overflow-x:auto; }
+  .terminal .comment { color:#8b949e; } .terminal .keyword { color:#ff79c6; font-weight:600; }
+  .terminal .string { color:#f1fa8c; } .terminal .indent { margin-left:2ch; display:inline-block; }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .card { display:flex; flex-direction:column; gap:12px; padding:24px; background:var(--surface); border:1px solid var(--line); border-radius:14px; transition:0.4s cubic-bezier(.2,.7,.2,1); }
+  .card:hover { transform:translateY(-4px); border-color:#b4b4bb; box-shadow:0 20px 40px -15px rgba(0,0,0,0.1); }
+  .card h3 { font-size:1.35rem; font-weight:700; letter-spacing:-0.02em; }
+  .card p { color:var(--muted); font-size:0.95rem; }
+  .code-counter { font-size:0.85rem; font-weight:700; color:var(--accent); margin-top:4px; font-family:'JetBrains Mono',monospace; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:8px; }
+  .chip { padding:4px 10px; font-size:0.8rem; font-weight:600; background:var(--bg); border:1px solid var(--line); border-radius:999px; }
+  .card.soon { background:transparent; border-style:dashed; }
+  .cta { text-align:left; border-bottom:none; }
+  .btn { display:flex; align-items:center; justify-content:space-between; padding:24px 32px; font-size:clamp(1.1rem,2.5vw,1.4rem); font-weight:700; color:#fff; background:var(--text); border:1px solid var(--text); border-radius:14px; text-decoration:none; transition:0.3s cubic-bezier(.2,.7,.2,1); }
+  .btn:hover { background:var(--accent); border-color:var(--accent); }
+  .btn:hover .arrow { transform:translateX(6px); transition:0.3s; }
+  footer { padding:0 0 40px; font-size:0.85rem; font-weight:500; color:var(--muted); }
+  @media (max-width:680px) { .grid { grid-template-columns:1fr; } .lang-switcher { top:16px; right:16px; } }
 </style>
 </head>
 <body>
+
+  <button class="lang-switcher" id="langBtn" onclick="toggleLang()">EN</button>
 
   <header class="hero">
     <div class="container">
@@ -224,11 +50,10 @@
   </header>
 
   <main>
-    <section class="about">
+    <section>
       <div class="container">
-        <h2>Обо мне</h2>
-        <!-- Блок стилизован под код Python внутри терминала -->
-        <div class="terminal">
+        <h2 id="t-about">Обо мне</h2>
+        <div class="terminal" id="term">
           <span class="comment"># Инфо об авторе</span><br>
           <span class="keyword">developer</span> = {<br>
           <span class="indent"></span><span class="string">"name"</span>: <span class="string">"mraz0tix"</span>,<br>
@@ -239,28 +64,21 @@
       </div>
     </section>
 
-    <section class="projects">
+    <section>
       <div class="container">
-        <h2>Проекты</h2>
+        <h2 id="t-projects">Проекты</h2>
         <div class="grid">
           <article class="card">
             <h3>System Toolbox</h3>
-            <p>Консольная утилита для работы с системой: проверка сети, просмотр сокетов через ss и сводка о системе через fastfetch.</p>
+            <p id="d-box">Консольная утилита для работы с системой: проверка сети, просмотр сокетов через ss и сводка о системе через fastfetch.</p>
             <div class="code-counter" id="lines-count">Код проекта: 82 строки</div> 
-            <div class="chips">
-              <span class="chip">Python</span>
-              <span class="chip">CLI</span>
-              <span class="chip">ss</span>
-              <span class="chip">fastfetch</span>
-            </div>
+            <div class="chips"><span class="chip">Python</span><span class="chip">CLI</span><span class="chip">ss</span><span class="chip">fastfetch</span></div>
           </article>
 
           <article class="card soon">
-            <h3>Скоро</h3>
-            <p>Здесь появится следующий проект. Идея уже в работе.</p>
-            <div class="chips">
-              <span class="chip">В разработке</span>
-            </div>
+            <h3 id="t-soon">Скоро</h3>
+            <p id="d-soon">Здесь появится следующий проект. Идея уже в работе.</p>
+            <div class="chips"><span class="chip" id="c-soon">В разработке</span></div>
           </article>
         </div>
       </div>
@@ -269,16 +87,35 @@
     <section class="cta">
       <div class="container">
         <a class="btn" href="https://github.com" target="_blank" rel="noopener noreferrer">
-          <span>Мой профиль на GitHub</span>
-          <span class="arrow" aria-hidden="true">→</span>
+          <span id="b-txt">Мой профиль на GitHub</span><span class="arrow">→</span>
         </a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">© mraz0tix</div>
-  </footer>
+  <footer><div class="container">© mraz0tix</div></footer>
 
+  <script>
+    let lang = 'ru';
+    function toggleLang() {
+      const btn = document.getElementById('langBtn'), tA = document.getElementById('t-about'), tm = document.getElementById('term'), tP = document.getElementById('t-projects'), dB = document.getElementById('d-box'), lC = document.getElementById('lines-count'), tS = document.getElementById('t-soon'), dS = document.getElementById('d-soon'), cS = document.getElementById('c-soon'), bT = document.getElementById('b-txt');
+      let num = lC.innerText.match(/\d+/); num = num ? num[0] : 82;
+      if (lang === 'ru') {
+        lang = 'en'; btn.innerText = 'RU'; tA.innerText = 'About Me'; tP.innerText = 'Projects';
+        dB.innerText = 'A console utility for system administration: checking connection, viewing network sockets via ss, and getting system info via fastfetch.';
+        lC.innerText = `Project code: ${num} lines`; tS.innerText = 'Soon';
+        dS.innerText = 'The next project will appear here. The idea is already in development.';
+        cS.innerText = 'In progress'; bT.innerText = 'My GitHub Profile';
+        tm.innerHTML = `<span class="comment"># Author info</span><br><span class="keyword">developer</span> = {<br><span class="indent"></span><span class="string">"name"</span>: <span class="string">"mraz0tix"</span>,<br><span class="indent"></span><span class="string">"skills"</span>: [<span class="string">"Python"</span>, <span class="string">"Bash"</span>, <span class="string">"Git"</span>],<br><span class="indent"></span><span class="string">"focus"</span>: <span class="string">"system scripts and routine automation"</span><br>}`;
+      } else {
+        lang = 'ru'; btn.innerText = 'EN'; tA.innerText = 'Обо мне'; tP.innerText = 'Проекты';
+        dB.innerText = 'Консольная утилита для работы с системой: проверка сети, просмотр сокетов через ss и сводка о системе через fastfetch.';
+        lC.innerText = `Код проекта: ${num} строки`; tS.innerText = 'Скоро';
+        dS.innerText = 'Здесь появится следующий проект. Идея уже в работе.';
+        cS.innerText = 'В разработке'; bT.innerText = 'Мой профиль на GitHub';
+        tm.innerHTML = `<span class="comment"># Инфо об авторе</span><br><span class="keyword">developer</span> = {<br><span class="indent"></span><span class="string">"name"</span>: <span class="string">"mraz0tix"</span>,<br><span class="indent"></span><span class="string">"skills"</span>: [<span class="string">"Python"</span>, <span class="string">"Bash"</span>, <span class="string">"Git"</span>],<br><span class="indent"></span><span class="string">"focus"</span>: <span class="string">"системные скрипты и автоматизация рутины"</span><br>}`;
+      }
+    }
+  </script>
 </body>
 </html>
