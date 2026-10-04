@@ -133,6 +133,14 @@
     border-radius: 999px;
   }
 
+  /* Особый стиль для счетчика строк кода */
+  .code-counter {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 5px;
+  }
+
   .card.soon {
     background: transparent;
     border-style: dashed;
@@ -169,28 +177,17 @@
   .btn:hover { background: var(--accent); border-color: var(--accent); }
   .btn:hover .arrow { transform: translateX(6px); }
 
-  .btn:focus-visible, .card:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
   footer {
     padding: 0 0 48px;
     font-size: 0.85rem;
     color: var(--muted);
   }
 
-  /* Responsive */
   @media (max-width: 680px) {
     .grid { grid-template-columns: 1fr; }
     .container { padding: 0 20px; }
     .card { padding: 22px; }
     .btn { padding: 22px 24px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-    .card:hover { transform: none; }
   }
 </style>
 </head>
@@ -218,6 +215,8 @@
           <article class="card">
             <h3>System Toolbox</h3>
             <p>Консольная утилита для работы с системой: проверка сети, просмотр сокетов через ss и сводка о системе через fastfetch.</p>
+            <!-- Сюда робот будет автоматически вписывать строки кода -->
+            <div class="code-counter" id="lines-count">Код проекта: 82 строки</div> 
             <div class="chips">
               <span class="chip">Python</span>
               <span class="chip">CLI</span>
@@ -253,4 +252,3 @@
 
 </body>
 </html>
-```
