@@ -230,7 +230,6 @@
     border-radius: 2px;
   }
 
-  /* Обо мне — крупно и жирно */
   .about { padding: clamp(64px, 11vw, 128px) 0; }
 
   .about p {
@@ -241,7 +240,6 @@
     overflow-wrap: break-word;
   }
 
-  /* Проекты */
   .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -328,7 +326,6 @@
   .card.soon h3 { color: var(--muted); }
   .card.soon .icon { color: var(--muted); background: transparent; border-style: dashed; }
 
-  /* Контакты */
   .links { list-style: none; border-top: 1px solid var(--line); }
 
   .links li {
@@ -366,7 +363,6 @@
     border-radius: 4px;
   }
 
-  /* Кнопка GitHub */
   .cta { border-bottom: none; }
 
   .btn {
@@ -474,7 +470,7 @@
 
           <article class="card">
             <span class="icon" aria-hidden="true">&gt;_</span>
-            <h3>System Toolbox</h3>
+            <h3>SysPulse</h3>
             <p data-i18n="toolbox_text">Консольная утилита для работы с системой: ss, fastfetch.</p>
             <div class="card-meta">
               <p id="lines-count">Код проекта: 114 строки</p>
@@ -581,10 +577,8 @@
   var timer = null;
   var themeTimer = null;
 
-  // Русский префикс (всё до цифры) берём прямо из тега, а не дублируем в JS
   var ruLabel = linesEl.textContent.replace(/\d[\s\S]*$/, '');
 
-  // Склонение слова «строка» для русского языка
   function ruLines(n) {
     var d = n % 10, dd = n % 100;
     if (d === 1 && dd !== 11) return 'строка';
@@ -592,8 +586,6 @@
     return 'строк';
   }
 
-  // Из тега #lines-count читаем ТОЛЬКО число и подставляем его в перевод.
-  // Сам файл не меняется, поэтому автообновление через GitHub Actions работает как раньше.
   function renderLines(lang) {
     var match = linesEl.textContent.match(/\d+/);
     if (!match) return;
@@ -613,7 +605,6 @@
     root.lang = lang;
   }
 
-  // Ползунок переключателя языка двигается сразу, как и у темы
   function markActive(lang) {
     toggle.setAttribute('data-current', lang);
     options.forEach(function (o) {
@@ -637,7 +628,6 @@
     }, reduceMotion ? 0 : 230);
   }
 
-  // Тема
   function syncTheme() {
     var dark = root.getAttribute('data-theme') === 'dark';
     themeBtn.setAttribute('aria-checked', dark ? 'true' : 'false');
@@ -655,7 +645,6 @@
     try { localStorage.setItem('theme', theme); } catch (e) {}
   }
 
-  // Правильное склонение сразу при загрузке (61 строка, 82 строки, 100 строк)
   renderLines('ru');
   syncTheme();
 
