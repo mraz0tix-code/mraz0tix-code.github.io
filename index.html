@@ -6,17 +6,17 @@
 <meta name="theme-color" content="#f9f9fb">
 <title>mraz0tix — Python Developer</title>
 <script>
-  
+  // Применяем сохранённую тему до отрисовки, чтобы не было вспышки
   try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+  /* Светлая тема (по умолчанию) */
   :root {
     color-scheme: light;
     --bg: #f9f9fb;
     --surface: #ffffff;
-    --chip: #f9f9fb;
     --text: #000000;
     --muted: #5c5c66;
     --line: #e5e5ea;
@@ -26,18 +26,16 @@
     --inv-fg: #ffffff;
     --glass: rgba(255, 255, 255, 0.85);
     --hover-line: rgba(37, 99, 235, 0.35);
-    --shadow: rgba(0, 0, 0, 0.22);
-    --glow: rgba(37, 99, 235, 0.10);
-    --hi: rgba(255, 255, 255, 0.8);
-    --radius: 20px;
+    --shadow: rgba(0, 0, 0, 0.18);
+    --radius: 14px;
     --ease: cubic-bezier(.2, .7, .2, 1);
   }
 
+  /* Тёмная тема */
   :root[data-theme="dark"] {
     color-scheme: dark;
     --bg: #000000;
     --surface: #0d0d0f;
-    --chip: #161619;
     --text: #ffffff;
     --muted: #9b9ba5;
     --line: #232328;
@@ -46,9 +44,7 @@
     --inv-fg: #000000;
     --glass: rgba(13, 13, 15, 0.85);
     --hover-line: rgba(96, 165, 250, 0.45);
-    --shadow: rgba(37, 99, 235, 0.3);
-    --glow: rgba(37, 99, 235, 0.22);
-    --hi: rgba(255, 255, 255, 0.05);
+    --shadow: rgba(37, 99, 235, 0.28);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,31 +59,14 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(60% 45% at 50% -8%, var(--glow), transparent 70%);
-  }
-
   .container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
-  @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
-  @keyframes ping { to { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); } }
-
-  .hero .container, main section .container { animation: rise 0.9s var(--ease) both; }
-  .about .container { animation-delay: 0.1s; }
-  .projects .container { animation-delay: 0.2s; }
-  .contact .container { animation-delay: 0.3s; }
-  .cta .container { animation-delay: 0.4s; }
-
+  /* Панель управления: тема + язык */
   .controls {
     position: fixed;
     top: 16px;
@@ -182,23 +161,20 @@
     align-items: center;
     gap: 10px;
     margin-top: 28px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
+    padding: 7px 16px;
+    font-size: 0.88rem;
     font-weight: 500;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 999px;
-    box-shadow: inset 0 1px 0 var(--hi);
   }
 
   .tag::before {
     content: "";
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     background: var(--accent);
     border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
-    animation: ping 2.4s ease-out infinite;
   }
 
   /* Секции */
@@ -208,23 +184,13 @@
   }
 
   h2 {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-    font-size: 1.05rem;
+    margin-bottom: 24px;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
 
-  h2::before {
-    content: "";
-    width: 20px;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px;
-  }
-
+  /* Обо мне — крупно и жирно */
   .about { padding: clamp(64px, 11vw, 128px) 0; }
 
   .about p {
@@ -235,60 +201,52 @@
     overflow-wrap: break-word;
   }
 
+  /* Проекты (максимум 4: лишние карточки скрываются) */
   .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    gap: 16px;
   }
+
+  .grid > .card:nth-child(n+5) { display: none; }
 
   .card {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     padding: 28px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    box-shadow: inset 0 1px 0 var(--hi);
     transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.6s ease;
   }
 
-  .icon {
-    display: grid;
-    place-items: center;
-    width: 42px;
-    height: 42px;
-    margin-bottom: 4px;
-    font: 600 0.95rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: var(--accent-ink);
-    background: var(--chip);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-  }
-
   .card h3 {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: -0.025em;
   }
 
   .card p { color: var(--muted); font-size: 0.97rem; }
 
+  .card .stack {
+    margin-top: auto;
+    padding-top: 14px;
+    font-size: 0.85rem;
+  }
+
   .card-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
     gap: 8px 16px;
-    padding: 12px 0;
+    margin-top: 6px;
+    padding-top: 16px;
     border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
   }
 
   #lines-count {
-    color: var(--text);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.88rem;
     font-variant-numeric: tabular-nums;
   }
 
@@ -296,6 +254,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    margin-left: auto;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--accent-ink);
@@ -307,20 +266,7 @@
     transition: transform 0.35s var(--ease);
   }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-
-  .chip {
-    padding: 4px 11px;
-    font-size: 0.82rem;
-    background: var(--chip);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-  }
-
-  .card.soon { background: transparent; border-style: dashed; box-shadow: none; }
-  .card.soon h3 { color: var(--muted); }
-  .card.soon .icon { color: var(--muted); background: transparent; border-style: dashed; }
-
+  /* Контакты */
   .links { list-style: none; border-top: 1px solid var(--line); }
 
   .links li {
@@ -328,14 +274,14 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 16px;
-    padding: 20px 0;
+    padding: 18px 0;
     border-bottom: 1px solid var(--line);
   }
 
   .links-label { font-size: 0.95rem; color: var(--muted); }
 
   .link {
-    font-size: clamp(1.05rem, 3.4vw, 1.5rem);
+    font-size: clamp(1.05rem, 3.4vw, 1.4rem);
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--text);
@@ -358,6 +304,7 @@
     border-radius: 4px;
   }
 
+  /* Кнопка GitHub */
   .cta { border-bottom: none; }
 
   .btn {
@@ -366,16 +313,15 @@
     justify-content: space-between;
     gap: 24px;
     width: 100%;
-    padding: 32px 36px;
-    font-size: clamp(1.2rem, 3.2vw, 1.75rem);
+    padding: 30px 34px;
+    font-size: clamp(1.2rem, 3.2vw, 1.65rem);
     font-weight: 700;
     letter-spacing: -0.025em;
     color: #ffffff;
     background: var(--accent);
     border-radius: var(--radius);
-    box-shadow: 0 18px 40px -18px rgba(37, 99, 235, 0.6);
     text-decoration: none;
-    transition: background 0.45s ease, color 0.45s ease, transform 0.45s var(--ease);
+    transition: background 0.45s ease, color 0.45s ease;
   }
 
   .btn .arrow {
@@ -394,16 +340,15 @@
   @media (hover: hover) {
     .lang:hover, .theme:hover { border-color: var(--muted); }
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       border-color: var(--hover-line);
-      box-shadow: inset 0 1px 0 var(--hi), 0 24px 48px -24px var(--shadow);
+      box-shadow: 0 20px 40px -24px var(--shadow);
     }
-    .card.soon:hover { box-shadow: none; }
     .card-link:hover { text-decoration: underline; text-underline-offset: 4px; }
     .card-link:hover .arrow { transform: translate(2px, -2px); }
     .link:hover { color: var(--accent-ink); }
     .link:hover .arrow { color: var(--accent-ink); transform: translate(2px, -2px); }
-    .btn:hover { background: var(--inv-bg); color: var(--inv-fg); transform: translateY(-2px); }
+    .btn:hover { background: var(--inv-bg); color: var(--inv-fg); }
     .btn:hover .arrow { transform: translateX(8px); }
   }
 
@@ -461,33 +406,31 @@
     <section class="projects">
       <div class="container">
         <h2 data-i18n="projects_title">Проекты</h2>
+        <!-- Максимум 4 проекта: чтобы добавить ещё, скопируй блок <article class="card">. Всё после 4-го скрывается. -->
         <div class="grid">
 
           <article class="card">
-            <span class="icon" aria-hidden="true">&gt;_</span>
             <h3>SysPulse</h3>
-            <p data-i18n="toolbox_text">Консольная утилита для работы с системой: ss, fastfetch.</p>
+            <p data-i18n="syspulse_text">Консольная утилита для работы с системой: ss, fastfetch.</p>
+            <p class="stack">Python · CLI · ss · fastfetch</p>
             <div class="card-meta">
-              <p id="lines-count">Код проекта: 114 строки</p>
-              <a class="card-link" href="https://github.com/mraz0tix-code/mraz0tix/blob/main/system_tool.py" target="_blank" rel="noopener noreferrer">
-                <span data-i18n="toolbox_link">Приложение на GitHub</span>
+              <p id="lines-count">Код проекта: 114 строк</p>
+              <a class="card-link" href="https://github.com/mraz0tix-code/mraz0tix/blob/main/SysPulse.py" target="_blank" rel="noopener noreferrer">
+                <span data-i18n="app_link">Приложение на GitHub</span>
                 <span class="arrow" aria-hidden="true">↗</span>
               </a>
             </div>
-            <div class="chips">
-              <span class="chip">Python</span>
-              <span class="chip">CLI</span>
-              <span class="chip">ss</span>
-              <span class="chip">fastfetch</span>
-            </div>
           </article>
 
-          <article class="card soon">
-            <span class="icon" aria-hidden="true">+</span>
-            <h3 data-i18n="soon_title">Скоро</h3>
-            <p data-i18n="soon_text">Здесь появится следующий проект.</p>
-            <div class="chips">
-              <span class="chip" data-i18n="soon_badge">В разработке</span>
+          <article class="card">
+            <h3>FastSysPulse</h3>
+            <p data-i18n="fast_text">Быстрая версия SysPulse.</p>
+            <p class="stack">Python</p>
+            <div class="card-meta">
+              <a class="card-link" href="https://github.com/mraz0tix-code/mraz0tix/blob/main/FastSysPulse.py" target="_blank" rel="noopener noreferrer">
+                <span data-i18n="app_link">Приложение на GitHub</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
             </div>
           </article>
 
@@ -535,11 +478,9 @@
       about_title: 'Обо мне',
       about_text: 'Изучаю Python и пишу системные скрипты. Создаю инструменты автоматизации, которые экономят время и упрощают рутину.',
       projects_title: 'Проекты',
-      toolbox_text: 'Консольная утилита для работы с системой: ss, fastfetch.',
-      toolbox_link: 'Приложение на GitHub',
-      soon_title: 'Скоро',
-      soon_text: 'Здесь появится следующий проект.',
-      soon_badge: 'В разработке',
+      syspulse_text: 'Консольная утилита для работы с системой: ss, fastfetch.',
+      fast_text: 'Быстрая версия SysPulse.',
+      app_link: 'Приложение на GitHub',
       contact_title: 'Контакты',
       contact_email: 'Почта',
       cta: 'Мой профиль на GitHub',
@@ -549,11 +490,9 @@
       about_title: 'About me',
       about_text: "I'm learning Python and writing system scripts. I build automation tools that save time and simplify routine tasks.",
       projects_title: 'Projects',
-      toolbox_text: 'A console utility for working with the system: ss, fastfetch.',
-      toolbox_link: 'App on GitHub',
-      soon_title: 'Coming soon',
-      soon_text: 'The next project will appear here.',
-      soon_badge: 'In development',
+      syspulse_text: 'A console utility for working with the system: ss, fastfetch.',
+      fast_text: 'A faster version of SysPulse.',
+      app_link: 'App on GitHub',
       contact_title: 'Contact',
       contact_email: 'Email',
       cta: 'My GitHub profile',
@@ -572,8 +511,10 @@
   var timer = null;
   var themeTimer = null;
 
+  // Русский префикс (всё до цифры) берём прямо из тега, а не дублируем в JS
   var ruLabel = linesEl.textContent.replace(/\d[\s\S]*$/, '');
 
+  // Склонение слова «строка» для русского языка
   function ruLines(n) {
     var d = n % 10, dd = n % 100;
     if (d === 1 && dd !== 11) return 'строка';
@@ -581,6 +522,8 @@
     return 'строк';
   }
 
+  // Из тега #lines-count читаем ТОЛЬКО число и подставляем его в перевод.
+  // Сам файл не меняется, поэтому автообновление через GitHub Actions работает как раньше.
   function renderLines(lang) {
     var match = linesEl.textContent.match(/\d+/);
     if (!match) return;
@@ -600,6 +543,7 @@
     root.lang = lang;
   }
 
+  // Ползунок переключателя языка двигается сразу, как и у темы
   function markActive(lang) {
     toggle.setAttribute('data-current', lang);
     options.forEach(function (o) {
@@ -623,6 +567,7 @@
     }, reduceMotion ? 0 : 230);
   }
 
+  // Тема
   function syncTheme() {
     var dark = root.getAttribute('data-theme') === 'dark';
     themeBtn.setAttribute('aria-checked', dark ? 'true' : 'false');
@@ -640,6 +585,7 @@
     try { localStorage.setItem('theme', theme); } catch (e) {}
   }
 
+  // Правильное склонение сразу при загрузке (61 строка, 82 строки, 114 строк)
   renderLines('ru');
   syncTheme();
 
