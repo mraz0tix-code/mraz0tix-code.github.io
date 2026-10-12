@@ -201,14 +201,14 @@
     overflow-wrap: break-word;
   }
 
-  /* Проекты (максимум 4: лишние карточки скрываются) */
+  /* Проекты (максимум 6: лишние карточки скрываются; число меняется в nth-child(n+7)) */
   .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
   }
 
-  .grid > .card:nth-child(n+5) { display: none; }
+  .grid > .card:nth-child(n+7) { display: none; }
 
   .card {
     display: flex;
@@ -234,6 +234,9 @@
     padding-top: 14px;
     font-size: 0.85rem;
   }
+
+  .card.soon { background: transparent; border-style: dashed; }
+  .card.soon h3 { color: var(--muted); }
 
   .card-meta {
     display: flex;
@@ -344,6 +347,7 @@
       border-color: var(--hover-line);
       box-shadow: 0 20px 40px -24px var(--shadow);
     }
+    .card.soon:hover { box-shadow: none; }
     .card-link:hover { text-decoration: underline; text-underline-offset: 4px; }
     .card-link:hover .arrow { transform: translate(2px, -2px); }
     .link:hover { color: var(--accent-ink); }
@@ -406,7 +410,7 @@
     <section class="projects">
       <div class="container">
         <h2 data-i18n="projects_title">Проекты</h2>
-        <!-- Максимум 4 проекта: чтобы добавить ещё, скопируй блок <article class="card">. Всё после 4-го скрывается. -->
+        <!-- Максимум 6 проектов: чтобы добавить ещё, скопируй блок <article class="card">. Всё после 6-го скрывается. -->
         <div class="grid">
 
           <article class="card">
@@ -432,6 +436,12 @@
                 <span class="arrow" aria-hidden="true">↗</span>
               </a>
             </div>
+          </article>
+
+          <article class="card soon">
+            <h3 data-i18n="soon_title">Скоро</h3>
+            <p data-i18n="soon_text">Здесь появится следующий проект.</p>
+            <p class="stack" data-i18n="soon_badge">В разработке</p>
           </article>
 
         </div>
@@ -481,6 +491,9 @@
       syspulse_text: 'Консольная утилита для работы с системой: ss, fastfetch.',
       fast_text: 'Быстрая версия SysPulse.',
       app_link: 'Приложение на GitHub',
+      soon_title: 'Скоро',
+      soon_text: 'Здесь появится следующий проект.',
+      soon_badge: 'В разработке',
       contact_title: 'Контакты',
       contact_email: 'Почта',
       cta: 'Мой профиль на GitHub',
@@ -493,6 +506,9 @@
       syspulse_text: 'A console utility for working with the system: ss, fastfetch.',
       fast_text: 'A faster version of SysPulse.',
       app_link: 'App on GitHub',
+      soon_title: 'Coming soon',
+      soon_text: 'The next project will appear here.',
+      soon_badge: 'In development',
       contact_title: 'Contact',
       contact_email: 'Email',
       cta: 'My GitHub profile',
