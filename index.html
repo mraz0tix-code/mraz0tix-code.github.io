@@ -6,13 +6,12 @@
 <meta name="theme-color" content="#f9f9fb">
 <title>mraz0tix — Python Developer</title>
 <script>
-  // Применяем сохранённую тему до отрисовки, чтобы не было вспышки
+  
   try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-  /* Светлая тема (по умолчанию) */
   :root {
     color-scheme: light;
     --bg: #f9f9fb;
@@ -34,7 +33,6 @@
     --ease: cubic-bezier(.2, .7, .2, 1);
   }
 
-  /* Тёмная тема */
   :root[data-theme="dark"] {
     color-scheme: dark;
     --bg: #000000;
@@ -65,7 +63,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Мягкое свечение сверху */
   body::before {
     content: "";
     position: fixed;
@@ -82,7 +79,6 @@
     padding: 0 24px;
   }
 
-  /* Анимации появления */
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
   @keyframes ping { to { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); } }
 
@@ -92,7 +88,6 @@
   .contact .container { animation-delay: 0.3s; }
   .cta .container { animation-delay: 0.4s; }
 
-  /* Панель управления: тема + язык */
   .controls {
     position: fixed;
     top: 16px;
