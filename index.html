@@ -140,7 +140,7 @@
   }
 
   /* Плавная смена текста при переводе */
-  [data-i18n], #lines-count { transition: opacity 0.22s ease; }
+  [data-i18n], #lines-count, #fast-lines-count { transition: opacity 0.22s ease; }
   .is-fading { opacity: 0; }
 
   /* Hero */
@@ -248,7 +248,7 @@
     border-top: 1px solid var(--line);
   }
 
-  #lines-count {
+  #lines-count, #fast-lines-count {
     font-size: 0.88rem;
     font-variant-numeric: tabular-nums;
   }
@@ -431,6 +431,7 @@
             <p data-i18n="fast_text">То же, что и SysPulse, но работает быстрее.</p>
             <p class="stack">Python · CLI · ss · fastfetch · btop</p>
             <div class="card-meta">
+              <p id="fast-lines-count">Код проекта: 103 строки</p>
               <a class="card-link" href="https://github.com/mraz0tix-code/mraz0tix/blob/main/FastSysPulse.py" target="_blank" rel="noopener noreferrer">
                 <span data-i18n="app_link">Приложение на GitHub</span>
                 <span class="arrow" aria-hidden="true">↗</span>
@@ -521,14 +522,16 @@
   var options = toggle.querySelectorAll('[data-lang]');
   var themeBtn = document.getElementById('theme-toggle');
   var metaTheme = document.querySelector('meta[name="theme-color"]');
-  var linesEl = document.getElementById('lines-count');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = 'ru';
   var timer = null;
   var themeTimer = null;
 
-  // Русский префикс (всё до цифры) берём прямо из тега, а не дублируем в JS
-  var ruLabel = linesEl.textContent.replace(/\d[\s\S]*$/, '');
+  // Строки с количеством кода (SysPulse и FastSysPulse).
+  // Русский префикс (всё до цифры) берём прямо из тега, а не дублируем в JS.
+  var lines = Array.prototype.map.call(document.querySelectorAll('#lines-count, #fast-lines-count'), function (el) {
+    return { el: el, ruLabel: el.textContent.replace(/\d[\s\S]*$/, '') };
+  });
 
   // Склонение слова «строка» для русского языка
   function ruLines(n) {
@@ -538,15 +541,17 @@
     return 'строк';
   }
 
-  // Из тега #lines-count читаем ТОЛЬКО число и подставляем его в перевод.
+  // Из каждого тега читаем ТОЛЬКО число и подставляем его в перевод.
   // Сам файл не меняется, поэтому автообновление через GitHub Actions работает как раньше.
   function renderLines(lang) {
-    var match = linesEl.textContent.match(/\d+/);
-    if (!match) return;
-    var n = parseInt(match[0], 10);
-    linesEl.textContent = lang === 'en'
-      ? 'Project code: ' + n + (n === 1 ? ' line' : ' lines')
-      : ruLabel + n + ' ' + ruLines(n);
+    lines.forEach(function (item) {
+      var match = item.el.textContent.match(/\d+/);
+      if (!match) return;
+      var n = parseInt(match[0], 10);
+      item.el.textContent = lang === 'en'
+        ? 'Project code: ' + n + (n === 1 ? ' line' : ' lines')
+        : item.ruLabel + n + ' ' + ruLines(n);
+    });
   }
 
   function render(lang) {
@@ -573,7 +578,7 @@
     current = lang;
     markActive(lang);
 
-    var nodes = document.querySelectorAll('[data-i18n], #lines-count');
+    var nodes = document.querySelectorAll('[data-i18n], #lines-count, #fast-lines-count');
     nodes.forEach(function (n) { n.classList.add('is-fading'); });
 
     clearTimeout(timer);
@@ -601,7 +606,7 @@
     try { localStorage.setItem('theme', theme); } catch (e) {}
   }
 
-  // Правильное склонение сразу при загрузке (61 строка, 82 строки, 114 строк)
+  // Правильное склонение сразу при загрузке (61 строка, 103 строки, 114 строк)
   renderLines('ru');
   syncTheme();
 
