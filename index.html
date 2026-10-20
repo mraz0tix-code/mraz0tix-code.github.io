@@ -140,7 +140,7 @@
   }
 
   /* Плавная смена текста при переводе */
-  [data-i18n], #lines-count, #fast-lines-count { transition: opacity 0.22s ease; }
+  [data-i18n], #lines-count, #fast-lines-count, #net-lines-count { transition: opacity 0.22s ease; }
   .is-fading { opacity: 0; }
 
   /* Hero */
@@ -248,7 +248,7 @@
     border-top: 1px solid var(--line);
   }
 
-  #lines-count, #fast-lines-count {
+  #lines-count, #fast-lines-count, #net-lines-count {
     font-size: 0.88rem;
     font-variant-numeric: tabular-nums;
   }
@@ -439,9 +439,22 @@
             </div>
           </article>
 
+          <article class="card">
+            <h3>NetPulse</h3>
+            <p data-i18n="net_text">Консольная утилита для работы с сетью.</p>
+            <p class="stack">Python · CLI · network</p>
+            <div class="card-meta">
+              <p id="net-lines-count">Код проекта: 100 строк</p>
+              <a class="card-link" href="https://github.com/mraz0tix-code/NetPulse" target="_blank" rel="noopener noreferrer">
+                <span data-i18n="app_link">Приложение на GitHub</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+
           <article class="card soon">
-            <h3 data-i18n="soon_title">NetPulse</h3>
-            <p data-i18n="soon_text">Здесь появится NetPulse...</p>
+            <h3 data-i18n="soon_title">Новый проект</h3>
+            <p data-i18n="soon_text">Здесь появится новый проект...</p>
             <p class="stack" data-i18n="soon_badge">В разработке</p>
           </article>
 
@@ -492,8 +505,9 @@
       syspulse_text: 'Консольная утилита для работы с системой: ss, fastfetch.',
       fast_text: 'То же, что и SysPulse, но работает быстрее.',
       app_link: 'Приложение на GitHub',
-      soon_title: 'NetPulse',
-      soon_text: 'Здесь появится NetPulse.',
+      net_text: 'Консольная утилита для работы с сетью.',
+      soon_title: 'Новый проект',
+      soon_text: 'Здесь появится новый проект...',
       soon_badge: 'В разработке',
       contact_title: 'Контакты',
       contact_email: 'Почта',
@@ -507,8 +521,9 @@
       syspulse_text: 'A console utility for working with the system: ss, fastfetch.',
       fast_text: 'Same as SysPulse, but runs faster.',
       app_link: 'App on GitHub',
-      soon_title: 'NetPulse',
-      soon_text: 'NetPulse will appear here..',
+      net_text: 'A console utility for working with the network.',
+      soon_title: 'New project',
+      soon_text: 'A new project will appear here...',
       soon_badge: 'In development',
       contact_title: 'Contact',
       contact_email: 'Email',
@@ -527,9 +542,9 @@
   var timer = null;
   var themeTimer = null;
 
-  // Строки с количеством кода (SysPulse и FastSysPulse).
+  // Строки с количеством кода (SysPulse, FastSysPulse и NetPulse).
   // Русский префикс (всё до цифры) берём прямо из тега, а не дублируем в JS.
-  var lines = Array.prototype.map.call(document.querySelectorAll('#lines-count, #fast-lines-count'), function (el) {
+  var lines = Array.prototype.map.call(document.querySelectorAll('#lines-count, #fast-lines-count, #net-lines-count'), function (el) {
     return { el: el, ruLabel: el.textContent.replace(/\d[\s\S]*$/, '') };
   });
 
@@ -578,7 +593,7 @@
     current = lang;
     markActive(lang);
 
-    var nodes = document.querySelectorAll('[data-i18n], #lines-count, #fast-lines-count');
+    var nodes = document.querySelectorAll('[data-i18n], #lines-count, #fast-lines-count, #net-lines-count');
     nodes.forEach(function (n) { n.classList.add('is-fading'); });
 
     clearTimeout(timer);
