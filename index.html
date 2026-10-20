@@ -237,6 +237,8 @@
 
   .card.soon { background: transparent; border-style: dashed; }
   .card.soon h3 { color: var(--muted); }
+  .card.soon .card-meta { margin-top: auto; }
+  .card.soon .card-meta p { font-size: 0.88rem; }
 
   .card-meta {
     display: flex;
@@ -455,7 +457,9 @@
           <article class="card soon">
             <h3 data-i18n="soon_title">Новый проект</h3>
             <p data-i18n="soon_text">Здесь появится новый проект...</p>
-            <p class="stack" data-i18n="soon_badge">В разработке</p>
+            <div class="card-meta">
+              <p data-i18n="soon_badge">В разработке</p>
+            </div>
           </article>
 
         </div>
