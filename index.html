@@ -237,6 +237,27 @@
 
   .card.soon { background: transparent; border-style: dashed; }
   .card.soon h3 { color: var(--muted); }
+  .card.soon .card-meta { margin-top: auto; }
+  .card.soon .card-meta p { font-size: 0.88rem; }
+
+  /* Широкая карточка: слот под картинку слева, статус справа */
+  .card.wide { grid-column: 1 / -1; flex-direction: row; align-items: stretch; gap: 28px; }
+  .card-body { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+  .card-media {
+    flex: 0 0 min(42%, 320px);
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) - 4px);
+    overflow: hidden;
+  }
+
+  .card-media svg { width: 36px; height: 36px; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .card-meta {
     display: flex;
@@ -365,6 +386,8 @@
     .links li { flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 0; }
     .link { text-align: left; }
     .btn { padding: 24px; }
+    .card.wide { flex-direction: column; gap: 16px; }
+    .card-media { flex-basis: auto; min-height: 0; aspect-ratio: 16 / 9; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -455,7 +478,23 @@
           <article class="card soon">
             <h3 data-i18n="soon_title">Новый проект</h3>
             <p data-i18n="soon_text">Здесь появится новый проект...</p>
-            <p class="stack" data-i18n="soon_badge">В разработке</p>
+            <div class="card-meta">
+              <p data-i18n="soon_badge">В разработке</p>
+            </div>
+          </article>
+
+          <article class="card soon wide">
+            <div class="card-media">
+              <!-- Чтобы вставить картинку, замени <svg> на: <img src="картинка.png" alt="Название проекта"> -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 9"/></svg>
+            </div>
+            <div class="card-body">
+              <h3 data-i18n="slot_title">Название проекта</h3>
+              <p data-i18n="slot_text">Здесь будет описание проекта.</p>
+              <div class="card-meta">
+                <p data-i18n="soon_badge">В разработке</p>
+              </div>
+            </div>
           </article>
 
         </div>
@@ -508,6 +547,8 @@
       net_text: 'Консольная утилита для работы с сетью.',
       soon_title: 'Новый проект',
       soon_text: 'Здесь появится новый проект...',
+      slot_title: 'Название проекта',
+      slot_text: 'Здесь будет описание проекта.',
       soon_badge: 'В разработке',
       contact_title: 'Контакты',
       contact_email: 'Почта',
@@ -524,6 +565,8 @@
       net_text: 'A console utility for working with the network.',
       soon_title: 'New project',
       soon_text: 'A new project will appear here...',
+      slot_title: 'Project title',
+      slot_text: 'Project description goes here.',
       soon_badge: 'In development',
       contact_title: 'Contact',
       contact_email: 'Email',
