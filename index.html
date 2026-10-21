@@ -331,6 +331,8 @@
 
   .note-pill svg { flex: none; width: 14px; height: 14px; fill: currentColor; }
 
+  .card .coming { color: var(--accent-ink); font-weight: 600; }
+
   .card-meta {
     display: flex;
     flex-wrap: wrap;
@@ -560,6 +562,9 @@
           <article class="card soon">
             <h3 data-i18n="soon_title">Новый проект</h3>
             <p data-i18n="soon_text">Здесь появится новый проект...</p>
+            <div class="note" id="soon-note" aria-hidden="true">
+              <p class="coming" data-i18n="coming_text">Скоро</p>
+            </div>
             <p class="stack" data-i18n="soon_badge">В разработке</p>
           </article>
 
@@ -616,6 +621,7 @@
       soon_badge: 'В разработке',
       attention_label: 'Особое внимание',
       attention_text: 'Этому проекту уделено особое внимание',
+      coming_text: 'Скоро',
       contact_title: 'Контакты',
       contact_email: 'Почта',
       cta: 'Мой профиль на GitHub',
@@ -634,6 +640,7 @@
       soon_badge: 'In development',
       attention_label: 'Special attention',
       attention_text: 'This project has received special attention',
+      coming_text: 'Coming soon',
       contact_title: 'Contact',
       contact_email: 'Email',
       cta: 'My GitHub profile',
@@ -647,6 +654,7 @@
   var themeBtn = document.getElementById('theme-toggle');
   var spot = document.getElementById('net-spot');
   var note = document.getElementById('net-note');
+  var soonNote = document.getElementById('soon-note');
   var metaTheme = document.querySelector('meta[name="theme-color"]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = 'ru';
@@ -757,6 +765,8 @@
     spot.setAttribute('aria-pressed', on ? 'true' : 'false');
     note.classList.toggle('is-open', on);
     note.setAttribute('aria-hidden', on ? 'false' : 'true');
+    soonNote.classList.toggle('is-open', on);
+    soonNote.setAttribute('aria-hidden', on ? 'false' : 'true');
     if (on) burst();
   });
 
