@@ -238,6 +238,99 @@
   .card.soon { background: transparent; border-style: dashed; }
   .card.soon h3 { color: var(--muted); }
 
+  /* Заголовок карточки + кнопка «особое внимание» */
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+  .spot {
+    position: relative;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color 0.35s ease, border-color 0.35s ease, transform 0.4s var(--ease);
+  }
+
+  .spot svg {
+    width: 17px;
+    height: 17px;
+    fill: transparent;
+    transition: fill 0.35s ease;
+  }
+
+  .spot[aria-pressed="true"] { color: var(--accent-ink); border-color: var(--hover-line); }
+  .spot[aria-pressed="true"] svg { fill: currentColor; }
+  .spot:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
+  .spot:active { transform: scale(0.92); }
+
+  .spot::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .spot.is-burst::after { animation: spot-ring 0.7s ease-out; }
+  .spot.is-burst svg { animation: spot-pop 0.6s var(--ease); }
+
+  .spark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    margin: -2.5px 0 0 -2.5px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: spark 0.65s var(--ease) forwards;
+  }
+
+  @keyframes spot-ring { from { opacity: 0.7; transform: scale(1); } to { opacity: 0; transform: scale(2.2); } }
+  @keyframes spot-pop { 0% { transform: scale(1) rotate(0); } 40% { transform: scale(1.5) rotate(-20deg); } 100% { transform: scale(1) rotate(0); } }
+  @keyframes spark {
+    from { opacity: 1; transform: rotate(var(--a)) translateX(12px) scale(1); }
+    to { opacity: 0; transform: rotate(var(--a)) translateX(30px) scale(0.3); }
+  }
+
+  /* Надпись, которая плавно выезжает после нажатия */
+  .note {
+    display: flex;
+    max-height: 0;
+    margin-top: -10px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: max-height 0.55s var(--ease), margin-top 0.55s var(--ease), opacity 0.4s ease, transform 0.55s var(--ease);
+  }
+
+  .note.is-open { max-height: 120px; margin-top: 0; opacity: 1; transform: none; }
+
+  .note-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent-ink);
+    background: var(--bg);
+    border: 1px solid var(--hover-line);
+    border-radius: 18px;
+  }
+
+  .note-pill svg { flex: none; width: 14px; height: 14px; fill: currentColor; }
+
   .card-meta {
     display: flex;
     flex-wrap: wrap;
@@ -342,6 +435,7 @@
 
   @media (hover: hover) {
     .lang:hover, .theme:hover { border-color: var(--muted); }
+    .spot:hover { color: var(--accent-ink); border-color: var(--hover-line); }
     .card:hover {
       transform: translateY(-3px);
       border-color: var(--hover-line);
@@ -440,8 +534,19 @@
           </article>
 
           <article class="card">
-            <h3>NetPulse</h3>
+            <div class="card-head">
+              <h3>NetPulse</h3>
+              <button class="spot" id="net-spot" type="button" aria-pressed="false" aria-controls="net-note" aria-label="Особое внимание">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>
+              </button>
+            </div>
             <p data-i18n="net_text">Консольная утилита для работы с сетью.</p>
+            <div class="note" id="net-note" aria-hidden="true">
+              <div class="note-pill">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>
+                <span data-i18n="attention_text">Этому проекту уделено особое внимание</span>
+              </div>
+            </div>
             <p class="stack">Python · CLI · network</p>
             <div class="card-meta">
               <p id="net-lines-count">Код проекта: 143 строк</p>
@@ -509,6 +614,8 @@
       soon_title: 'Новый проект',
       soon_text: 'Здесь появится новый проект...',
       soon_badge: 'В разработке',
+      attention_label: 'Особое внимание',
+      attention_text: 'Этому проекту уделено особое внимание',
       contact_title: 'Контакты',
       contact_email: 'Почта',
       cta: 'Мой профиль на GitHub',
@@ -525,6 +632,8 @@
       soon_title: 'New project',
       soon_text: 'A new project will appear here...',
       soon_badge: 'In development',
+      attention_label: 'Special attention',
+      attention_text: 'This project has received special attention',
       contact_title: 'Contact',
       contact_email: 'Email',
       cta: 'My GitHub profile',
@@ -536,6 +645,8 @@
   var toggle = document.getElementById('lang-toggle');
   var options = toggle.querySelectorAll('[data-lang]');
   var themeBtn = document.getElementById('theme-toggle');
+  var spot = document.getElementById('net-spot');
+  var note = document.getElementById('net-note');
   var metaTheme = document.querySelector('meta[name="theme-color"]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = 'ru';
@@ -576,6 +687,7 @@
     });
     renderLines(lang);
     themeBtn.setAttribute('aria-label', dict[lang].theme_label);
+    spot.setAttribute('aria-label', dict[lang].attention_label);
     root.lang = lang;
   }
 
@@ -624,6 +736,29 @@
   // Правильное склонение сразу при загрузке (61 строка, 103 строки, 114 строк)
   renderLines('ru');
   syncTheme();
+
+  // Кнопка «особое внимание» у NetPulse: анимация и надпись
+  function burst() {
+    if (reduceMotion) return;
+    spot.classList.remove('is-burst');
+    void spot.offsetWidth;
+    spot.classList.add('is-burst');
+    for (var i = 0; i < 8; i++) {
+      var sp = document.createElement('i');
+      sp.className = 'spark';
+      sp.style.setProperty('--a', (i * 45) + 'deg');
+      sp.addEventListener('animationend', function () { this.remove(); });
+      spot.appendChild(sp);
+    }
+  }
+
+  spot.addEventListener('click', function () {
+    var on = spot.getAttribute('aria-pressed') !== 'true';
+    spot.setAttribute('aria-pressed', on ? 'true' : 'false');
+    note.classList.toggle('is-open', on);
+    note.setAttribute('aria-hidden', on ? 'false' : 'true');
+    if (on) burst();
+  });
 
   toggle.addEventListener('click', function () {
     setLang(current === 'ru' ? 'en' : 'ru');
