@@ -3,11 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f9f9fb">
+<meta name="theme-color" content="#000000">
 <title>mraz0tix — Python Developer</title>
 <script>
-  // Применяем сохранённую тему до отрисовки, чтобы не было вспышки
-  try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  // Тема по умолчанию — тёмная; светлая только если пользователь сам её выбрал.
+  // Применяем до отрисовки, чтобы не было вспышки
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    if (saved !== 'light') document.documentElement.setAttribute('data-theme', 'dark');
+  })();
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -471,7 +476,7 @@
 <body>
 
   <div class="controls">
-    <button class="theme" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Тёмная тема">
+    <button class="theme" id="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Dark theme">
       <span class="theme-thumb" aria-hidden="true"></span>
       <span class="theme-opt sun" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -481,10 +486,10 @@
       </span>
     </button>
 
-    <button class="lang" id="lang-toggle" type="button" aria-label="Switch to English" data-current="ru">
+    <button class="lang" id="lang-toggle" type="button" aria-label="Переключить на русский" data-current="en">
       <span class="lang-thumb" aria-hidden="true"></span>
-      <span class="lang-opt" data-lang="en">EN</span>
-      <span class="lang-opt is-active" data-lang="ru">RU</span>
+      <span class="lang-opt is-active" data-lang="en">EN</span>
+      <span class="lang-opt" data-lang="ru">RU</span>
     </button>
   </div>
 
@@ -657,7 +662,7 @@
   var soonNote = document.getElementById('soon-note');
   var metaTheme = document.querySelector('meta[name="theme-color"]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current = 'ru';
+  var current = 'en';
   var timer = null;
   var themeTimer = null;
 
@@ -741,8 +746,10 @@
     try { localStorage.setItem('theme', theme); } catch (e) {}
   }
 
-  // Правильное склонение сразу при загрузке (61 строка, 103 строки, 114 строк)
-  renderLines('ru');
+  // Язык по умолчанию — английский. В HTML остаётся русский текст (по нему
+  // GitHub Actions находит счётчики строк), а здесь сразу переключаем на английский.
+  markActive('en');
+  render('en');
   syncTheme();
 
   // Кнопка «особое внимание» у NetPulse: анимация и надпись
