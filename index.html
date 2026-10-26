@@ -315,6 +315,8 @@
   /* Кнопка GitHub */
   .cta { border-bottom: none; }
 
+  .btns { display: flex; flex-direction: column; gap: 16px; }
+
   .btn {
     display: flex;
     align-items: center;
@@ -467,15 +469,6 @@
       </div>
     </section>
 
-    <section class="site-link">
-      <div class="container">
-        <a class="btn" href="https://mraz0tix-code.github.io/SysPulse_FastSysPulse/" target="_blank" rel="noopener noreferrer">
-          <span data-i18n="site_cta">Сайт про SysPulse и FastSysPulse</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-    </section>
-
     <section class="contact">
       <div class="container">
         <h2 data-i18n="contact_title">Контакты</h2>
@@ -489,6 +482,21 @@
             <a class="link" href="https://github.com/mraz0tix-code" target="_blank" rel="noopener noreferrer">github.com/mraz0tix-code<span class="arrow" aria-hidden="true">↗</span></a>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <section class="site-link">
+      <div class="container">
+        <div class="btns">
+          <a class="btn" href="https://mraz0tix-code.github.io/SysPulse_FastSysPulse/" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="site_cta">Сайт про SysPulse и FastSysPulse</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn" href="https://mraz0tix-code.github.io/NetPulseSite/" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="net_site_cta">Сайт про NetPulse</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -526,6 +534,7 @@
       contact_title: 'Контакты',
       contact_email: 'Почта',
       site_cta: 'Сайт про SysPulse и FastSysPulse',
+      net_site_cta: 'Сайт про NetPulse',
       cta: 'Мой профиль на GitHub',
       theme_label: 'Тёмная тема'
     },
@@ -543,6 +552,7 @@
       contact_title: 'Contact',
       contact_email: 'Email',
       site_cta: 'SysPulse & FastSysPulse website',
+      net_site_cta: 'NetPulse website',
       cta: 'My GitHub profile',
       theme_label: 'Dark theme'
     }
