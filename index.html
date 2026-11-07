@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<script src="https://telegram.org"></script>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -241,6 +240,25 @@
     font-size: 0.85rem;
   }
 
+  .card-wide { grid-column: 1 / -1; }
+
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 6px;
+  }
+
+  .variant { min-width: 0; }
+
+  .variant h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .variant .card-meta { margin-top: 8px; }
+
   .card.soon { background: transparent; border-style: dashed; }
   .card.soon h3 { color: var(--muted); }
 
@@ -369,6 +387,7 @@
     .container { padding: 0 20px; }
     .controls { top: 12px; right: 12px; gap: 6px; }
     .grid { grid-template-columns: 1fr; }
+    .variants { grid-template-columns: 1fr; }
     .card { padding: 22px; }
     .links li { flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 0; }
     .link { text-align: left; }
@@ -421,30 +440,31 @@
         <!-- Максимум 6 проектов: чтобы добавить ещё, скопируй блок <article class="card">. Всё после 6-го скрывается. -->
         <div class="grid">
 
-          <article class="card">
-            <h3>SysPulse</h3>
-            <p data-i18n="syspulse_text">Консольная утилита для работы с системой: ss, fastfetch.</p>
+          <article class="card card-wide">
+            <h3>SysPulse &amp; FastSysPulse</h3>
+            <p data-i18n="pair_text">Две консольные утилиты для работы с системой: ss, fastfetch. FastSysPulse работает быстрее.</p>
             <p class="stack">Python · CLI · ss · fastfetch · btop · calculator</p>
-            <div class="card-meta">
-              <p id="lines-count">Код проекта: 423 строк</p>
-              <a class="card-link" href="https://github.com/mraz0tix-code/SysPulse/blob/main/SysPulse.py" target="_blank" rel="noopener noreferrer">
-                <span data-i18n="app_link">Приложение на GitHub</span>
-                <span class="arrow" aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3>SysPulse & FastSysPulse</h3>
-            <p data-i18n="fast_text">Консольные утилиты для работы с системой: ss, fastfetch.</p>
-            <p class="stack">Python · CLI · ss · fastfetch · btop · def</p>
-            <div class="card-meta">
-              <p id="fast-lines-count">Код проектов: FastSysTool -> 418 строки</p>
-              <p id="fast-lines-count">Код проектов: SysTool -> 423 строки</p>
-              <a class="card-link" href="https://github.com/mraz0tix-code/SysPulse/blob/main/FastSysPulse.py" target="_blank" rel="noopener noreferrer">
-                <span data-i18n="app_link">Приложение на GitHub</span>
-                <span class="arrow" aria-hidden="true">↗</span>
-              </a>
+            <div class="variants">
+              <div class="variant">
+                <h4>SysPulse</h4>
+                <div class="card-meta">
+                  <p id="lines-count">Код проекта: 422 строк</p>
+                  <a class="card-link" href="https://github.com/mraz0tix-code/SysPulse/blob/main/SysPulse.py" target="_blank" rel="noopener noreferrer">
+                    <span data-i18n="app_link">Приложение на GitHub</span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
+              <div class="variant">
+                <h4>FastSysPulse</h4>
+                <div class="card-meta">
+                  <p id="fast-lines-count">Код проекта: 418 строки</p>
+                  <a class="card-link" href="https://github.com/mraz0tix-code/SysPulse/blob/main/FastSysPulse.py" target="_blank" rel="noopener noreferrer">
+                    <span data-i18n="app_link">Приложение на GitHub</span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </article>
 
@@ -463,7 +483,7 @@
 
           <article class="card soon">
             <h3 data-i18n="soon_title">Новый проект</h3>
-            <p data-i18n="soon_text">Здесь появится новый проект...</p>
+            <p data-i18n="soon_text">Проект скоро будет опубликован.</p>
             <p class="stack" data-i18n="soon_badge">В разработке</p>
           </article>
 
@@ -526,12 +546,11 @@
       about_title: 'Обо мне',
       about_text: 'Изучаю Python и пишу системные скрипты. Создаю инструменты автоматизации, которые экономят время и упрощают рутину.',
       projects_title: 'Проекты',
-      syspulse_text: 'Консольная утилита для работы с системой: ss, fastfetch.',
-      fast_text: 'То же, что и SysPulse, но работает быстрее.',
+      pair_text: 'Две консольные утилиты для работы с системой: ss, fastfetch. FastSysPulse работает быстрее.',
       app_link: 'Приложение на GitHub',
       net_text: 'Консольная утилита для работы с сетью.',
       soon_title: 'Новый проект',
-      soon_text: 'Здесь появится новый проект...',
+      soon_text: 'Проект скоро будет опубликован.',
       soon_badge: 'В разработке',
       contact_title: 'Контакты',
       contact_email: 'Почта',
@@ -544,12 +563,11 @@
       about_title: 'About me',
       about_text: "I'm learning Python and writing system scripts. I build automation tools that save time and simplify routine tasks.",
       projects_title: 'Projects',
-      syspulse_text: 'A console utility for working with the system: ss, fastfetch.',
-      fast_text: 'Same as SysPulse, but runs faster.',
+      pair_text: 'Two console utilities for working with the system: ss, fastfetch. FastSysPulse runs faster.',
       app_link: 'App on GitHub',
       net_text: 'A console utility for working with the network.',
       soon_title: 'New project',
-      soon_text: 'A new project will appear here...',
+      soon_text: 'The project will be published soon.',
       soon_badge: 'In development',
       contact_title: 'Contact',
       contact_email: 'Email',
